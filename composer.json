@@ -9,9 +9,7 @@
             "Models\\": "./src/Models",
             "Lib\\": "./src/Lib",
             "Views\\": "./src/Views", 
-            "Routes\\": "./src/Routes",
-            "Utils\\": "./src/Utils",
-            "Repositories\\": "./src/Repositories"
+            "Routes\\": "./src/Routes"
         }
     },
     "authors": [
