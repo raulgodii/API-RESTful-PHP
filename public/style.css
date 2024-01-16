@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header{
+    background-color: black;
+    color: white;
+    padding: 10px 40px;
+}
+
+.header-init{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+header ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 10px;
+}
+
+header h1{
+    text-transform: uppercase;
+    color: rgb(167, 172, 19);
+}
+
+header a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+header a:hover{
+    color: grey;
+}
+
+header ul{
+    list-style: none;
+}
+
+main{
+    padding: 10px 40px;
+}
+
+button, input[type="submit"], .btn{
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 2px 8px;
+    transition: 0.3s;
+}
+
+button:hover, input[type="submit"]:hover, .btn:hover{
+    background-color: rgb(240, 254, 172);
+    cursor: pointer;
+    color: black;
+}
+
+.successMessage{
+    color: green;
+}
+
+.errorMessage{
+    color: red;
+}

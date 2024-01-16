@@ -1,0 +1,26 @@
+{
+    "name": "raulg/php-examen",
+    "description": "examen php",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Raulg\\PhpExamen\\": "src/",
+            "Controllers\\": "./src/Controllers",
+            "Models\\": "./src/Models",
+            "Lib\\": "./src/Lib",
+            "Views\\": "./src/Views", 
+            "Routes\\": "./src/Routes",
+            "Utils\\": "./src/Utils",
+            "Repositories\\": "./src/Repositories"
+        }
+    },
+    "authors": [
+        {
+            "name": "raul"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "vlucas/phpdotenv": "*"
+    }
+}
