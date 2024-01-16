@@ -1,15 +1,15 @@
 <?php
 namespace Models;
-use Lib\BaseDatos;
+use Lib\DataBase;
 use PDOException;
 use PDO;
 
 class Ponente{
 
-    private BaseDatos $connection;
+    private DataBase $connection;
     
     public function __construct(){
-        $this->connection = new BaseDatos();
+        $this->connection = new DataBase();
     }
 
     public function consulta($param1,$param2){
