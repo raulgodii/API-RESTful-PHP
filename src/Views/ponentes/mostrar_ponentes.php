@@ -4,7 +4,11 @@
 
     echo $ResponseHTTP->setHeaders();
 
-    echo $ResponseHTTP->statusMessage(404, "No existen ponentes");
+    if(count($body) == 0){
+        echo $ResponseHTTP->statusMessage(404, "No existen ponentes");
+    } else {
+        echo $ResponseHTTP->statusMessage(202, "OK");
+    }
 
     echo json_encode(
         [
