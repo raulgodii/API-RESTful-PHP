@@ -20,8 +20,6 @@ class Pages
         $arriba = dirname(__DIR__, 1);
         //$head = $arriba . "\Views\layout\header.php";
         
-        require_once $arriba . "/Views/layout/header.php";
         require_once $arriba . "/Views/$pageName.php"; // incluimos la pagina indicada
-        require_once $arriba . "/Views/layout/footer.php";
     }
 }

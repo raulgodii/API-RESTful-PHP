@@ -14,7 +14,7 @@ CREATE TABLE `ponentes` (
 
 DROP TABLE IF EXISTS usuarios;
 CREATE TABLE IF NOT EXISTS `usuarios` (
-    `id` bigint(20) UNSIGNED NOT NULL,
+    `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
     `nombre` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
     `apellidos` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
     `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
