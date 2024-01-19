@@ -3,13 +3,22 @@
         'name' => 'raulg/php-examen',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'd9f2dbce8fb0678d01870770e456bded03ea1e71',
+        'reference' => 'f8eda1fd4944445e71442d104151adaee9f1ec80',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'firebase/php-jwt' => array(
+            'pretty_version' => 'v6.10.0',
+            'version' => '6.10.0.0',
+            'reference' => 'a49db6f0a5033aef5143295342f1c95521b075ff',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../firebase/php-jwt',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'graham-campbell/result-type' => array(
             'pretty_version' => 'v1.1.2',
             'version' => '1.1.2.0',
@@ -31,7 +40,7 @@
         'raulg/php-examen' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'd9f2dbce8fb0678d01870770e456bded03ea1e71',
+            'reference' => 'f8eda1fd4944445e71442d104151adaee9f1ec80',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

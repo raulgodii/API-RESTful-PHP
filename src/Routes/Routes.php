@@ -2,6 +2,7 @@
 namespace Routes;
 
 use Controllers\APIponenteController;
+use Controllers\AuthController;
 use Controllers\DashboardController;
 use Controllers\ErrorController;
 use Controllers\UsuarioController;
@@ -20,6 +21,10 @@ class Routes{
 
         Router::add('GET', '/ponentes/', function(){
             return (new APIponenteController())->mostrar_ponentes();
+        });
+
+        Router::add('GET', '/prueba/', function(){
+            return (new AuthController())->pruebas();
         });
 
         Router::dispatch();

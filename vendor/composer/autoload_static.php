@@ -17,10 +17,6 @@ class ComposerStaticInit4eb27a4a5e77d964038f2c97f525241f
         array (
             'Views\\' => 6,
         ),
-        'U' => 
-        array (
-            'Utils\\' => 6,
-        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -30,7 +26,6 @@ class ComposerStaticInit4eb27a4a5e77d964038f2c97f525241f
         'R' => 
         array (
             'Routes\\' => 7,
-            'Repositories\\' => 13,
             'Raulg\\PhpExamen\\' => 16,
         ),
         'P' => 
@@ -49,6 +44,10 @@ class ComposerStaticInit4eb27a4a5e77d964038f2c97f525241f
         array (
             'GrahamCampbell\\ResultType\\' => 26,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
@@ -63,10 +62,6 @@ class ComposerStaticInit4eb27a4a5e77d964038f2c97f525241f
         'Views\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Views',
-        ),
-        'Utils\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/Utils',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
@@ -83,10 +78,6 @@ class ComposerStaticInit4eb27a4a5e77d964038f2c97f525241f
         'Routes\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Routes',
-        ),
-        'Repositories\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src/Repositories',
         ),
         'Raulg\\PhpExamen\\' => 
         array (
@@ -107,6 +98,10 @@ class ComposerStaticInit4eb27a4a5e77d964038f2c97f525241f
         'GrahamCampbell\\ResultType\\' => 
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Dotenv\\' => 
         array (
