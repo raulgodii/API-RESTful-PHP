@@ -27,6 +27,10 @@ class Routes{
             return (new APIController())->mostrar_competicion($id);
         });
 
+        Router::add('DELETE', '/competicion/:id', function($id){
+            return (new APIController())->eliminar_competicion($id);
+        });
+
         Router::add('GET', '/prueba/', function(){
             return (new AuthController())->pruebas();
         });

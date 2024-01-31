@@ -20,5 +20,10 @@ class APIController{
         $body = $this->model->mostrar_competicion($id);
         $this->pages->render("competiciones/mostrar_competicion", ["body"=>$body]);
     }
+
+    public function eliminar_competicion($id){
+        $rowCount = $this->model->eliminar_competicion($id);
+        $this->pages->render("competiciones/eliminar_competicion", ["rowCount"=>$rowCount]);
+    }
     
 }
