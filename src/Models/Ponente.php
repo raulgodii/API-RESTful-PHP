@@ -22,7 +22,7 @@ class Ponente{
             $stmt->execute();
 
             // Extraer registros
-            $body=$stmt->fetch();
+            $body=$stmt->fetchAll(PDO::FETCH_ASSOC);
             if($body == false){
                 $body = [];
             }
