@@ -35,8 +35,30 @@ class Ponente{
             return $body;
         }
     }
-    public function consulta($param1,$param2){
-        
+    public function mostrar_ponente($id){
+        $body = [];
+        try {
+            // Query
+            $stmt=$this->connection->prepare('SELECT * FROM ponentes WHERE id=:id');
+
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+            // Ejecutar query
+            $stmt->execute();
+
+            // Extraer registros
+            $body=$stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($body == false){
+                $body = [];
+            }
+
+            // Cerrar
+            $stmt->closeCursor();
+
+            return $body;
+        } catch (PDOException $e){
+            return $body;
+        }
     }
 
 }

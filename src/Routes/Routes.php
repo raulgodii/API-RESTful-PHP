@@ -23,10 +23,14 @@ class Routes{
             return (new APIponenteController())->mostrar_ponentes();
         });
 
+        Router::add('GET', '/ponente/:id', function($id){
+            return (new APIponenteController())->mostrar_ponente($id);
+        });
+
         Router::add('GET', '/prueba/', function(){
             return (new AuthController())->pruebas();
         });
-
+        
         Router::dispatch();
 
     }

@@ -15,5 +15,10 @@ class APIponenteController{
         $body = $this->model->mostrar_ponentes();
         $this->pages->render("ponentes/mostrar_ponentes", ["body"=>$body]);
     }
+
+    public function mostrar_ponente($id){
+        $body = $this->model->mostrar_ponente($id);
+        $this->pages->render("ponentes/mostrar_ponente", ["body"=>$body]);
+    }
     
 }
