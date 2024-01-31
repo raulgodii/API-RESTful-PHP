@@ -48,4 +48,8 @@ class APIController
         $rowCount = $this->model->modificar_competicion($id, $data);
         $this->pages->render("competiciones/modificar_competicion", ["rowCount" => $rowCount]);
     }
+
+    public function header(){
+        $this->pages->render("layout/header");
+    }
 }

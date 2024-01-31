@@ -42,6 +42,10 @@ class Routes{
         Router::add('GET', '/prueba/', function(){
             return (new AuthController())->pruebas();
         });
+
+        Router::add('GET', '/header/', function(){
+            return (new APIController())->header();
+        });
         
         Router::dispatch();
 
