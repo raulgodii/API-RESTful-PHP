@@ -31,6 +31,14 @@ class Routes{
             return (new APIController())->eliminar_competicion($id);
         });
 
+        Router::add('POST', '/competicion', function(){
+            return (new APIController())->crear_competicion();
+        });
+
+        Router::add('PUT', '/competicion/:id', function($id){
+            return (new APIController())->modificar_competicion($id);
+        });
+
         Router::add('GET', '/prueba/', function(){
             return (new AuthController())->pruebas();
         });
