@@ -1,7 +1,7 @@
 <?php
 namespace Routes;
 
-use Controllers\APIponenteController;
+use Controllers\APIController;
 use Controllers\AuthController;
 use Controllers\DashboardController;
 use Controllers\ErrorController;
@@ -19,12 +19,12 @@ class Routes{
             return (new ErrorController())->error404();
         });
 
-        Router::add('GET', '/ponentes/', function(){
-            return (new APIponenteController())->mostrar_ponentes();
+        Router::add('GET', '/competiciones/', function(){
+            return (new APIController())->mostrar_competiciones();
         });
 
-        Router::add('GET', '/ponente/:id', function($id){
-            return (new APIponenteController())->mostrar_ponente($id);
+        Router::add('GET', '/competicion/:id', function($id){
+            return (new APIController())->mostrar_competicion($id);
         });
 
         Router::add('GET', '/prueba/', function(){

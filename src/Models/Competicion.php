@@ -4,7 +4,7 @@ use Lib\DataBase;
 use PDOException;
 use PDO;
 
-class Ponente{
+class Competicion{
 
     private DataBase $connection;
     
@@ -12,11 +12,11 @@ class Ponente{
         $this->connection = new DataBase();
     }
 
-    public function mostrar_ponentes(){
+    public function mostrar_competiciones(){
         $body = [];
         try {
             // Query
-            $stmt=$this->connection->prepare('SELECT * FROM ponentes');
+            $stmt=$this->connection->prepare('SELECT * FROM competiciones');
 
             // Ejecutar query
             $stmt->execute();
@@ -35,11 +35,11 @@ class Ponente{
             return $body;
         }
     }
-    public function mostrar_ponente($id){
+    public function mostrar_competicion($id){
         $body = [];
         try {
             // Query
-            $stmt=$this->connection->prepare('SELECT * FROM ponentes WHERE id=:id');
+            $stmt=$this->connection->prepare('SELECT * FROM competiciones WHERE id=:id');
 
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 

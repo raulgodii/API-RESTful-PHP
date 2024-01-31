@@ -5,7 +5,7 @@
     echo $ResponseHTTP->setHeaders();
 
     if(count($body) == 0){
-        echo $ResponseHTTP->statusMessage(404, "Ponente no existente");
+        echo $ResponseHTTP->statusMessage(404, "Competicion no existente");
     } else {
         echo $ResponseHTTP->statusMessage(202, "OK");
     }
