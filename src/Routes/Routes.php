@@ -47,6 +47,10 @@ class Routes{
             return (new UsuarioController())->iniciarSesion();
         });
 
+        Router::add('POST', '/iniciarSesion/', function(){
+            return (new UsuarioController())->iniciarUsuario();
+        });
+
         Router::add('GET', '/registro/', function(){
             return (new UsuarioController())->registro();
         });

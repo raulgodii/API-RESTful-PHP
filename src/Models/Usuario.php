@@ -232,7 +232,8 @@ class Usuario
             $datosUsuario = $this->buscaMail($email);
 
             if ($datosUsuario) {
-                $verify = password_verify($password, $datosUsuario->password);
+                var_dump($this->buscaMail($email));
+                $verify = password_verify($password, $datosUsuario->contrasena);
 
                 if ($verify) {
                     $result = $datosUsuario;
@@ -259,15 +260,17 @@ class Usuario
     public function buscaMail(string $email): mixed
     {
         try {
-            $select = $this->db->prepare("SELECT * FROM usuarios WHERE email=:email");
+            $select = $this->db->prepare("SELECT * FROM usuarios WHERE correo=:email");
             $select->bindValue(':email', $email, PDO::PARAM_STR);
             $select->execute();
             if ($select && $select->rowCount() == 1) {
                 $result = $select->fetch(PDO::FETCH_OBJ);
             } else {
+                
                 $result = false;
             }
         } catch (PDOException $err) {
+            
             $result = false;
         }
         return $result;

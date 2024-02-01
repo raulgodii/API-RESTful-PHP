@@ -112,7 +112,7 @@ class UsuarioController
     /**
      * Maneja el proceso de inicio de sesión de usuarios existentes.
      */
-    public function login(): void
+    public function iniciarUsuario(): void
     {
         if (($_SERVER['REQUEST_METHOD']) === 'POST'){
             if ($_POST['data']){
@@ -121,6 +121,7 @@ class UsuarioController
                 $usuario = Usuario::fromArray($login);
 
                 $validacion=$usuario->validarLogin();
+                
                 if ($validacion===true){
                     $verify = $usuario->login();
 
@@ -143,12 +144,12 @@ class UsuarioController
 
         if (!isset($verify) OR !$verify){
             if (isset($errores)){
-                $this->pages->render('/usuario/login', ['datos'=>$login, 'errores'=>$errores]);
+                $this->pages->render('/usuario/iniciarSesion', ['datos'=>$login, 'errores'=>$errores]);
             } else {
                 if (isset($login)){
-                    $this->pages->render('/usuario/login', ['datos'=>$login]);
+                    $this->pages->render('/usuario/iniciarSesion', ['datos'=>$login]);
                 } else {
-                    $this->pages->render('/usuario/login');
+                    $this->pages->render('/usuario/iniciarSesion');
                 }
             }
         }

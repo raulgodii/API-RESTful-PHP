@@ -1,3 +1,8 @@
+<?php
+// Importar el espacio de nombres Utils
+use Utils\Utils;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,18 +106,43 @@
     <div class="docs-wrapper">
 
 
+        <?php
+        // Verificar si no hay sesión activa o si el inicio de sesión ha fallado
+        if (!isset($_SESSION['login']) or $_SESSION['login'] == 'failed') :
+        ?>
+            <div class="container d-flex flex-column align-items-center justify-content-center">
+                <div class="form-container mt-5">
+                    <p>Iniciar Sesión</p>
+                    <form class="form" action="<?= BASE_URL ?>/iniciarSesion" method="POST">
+                        <label>Email</label>
+                        <input type="text" name="data[email]" class="input" placeholder="Introduce tu email" value='<?php if (isset($datos['email'])) echo $datos['email'] ?>'>
+                        <label>Contraseña</label>
+                        <input type="password" name="data[password]" class="input" placeholder="Contraseña" value='<?php if (isset($datos['password'])) echo $datos['password'] ?>'>
+                        <button>Entrar</button>
+                    </form>
+                </div>
+                <?php else: ?>
+                    <strong style="text-align:center; color:green;" class="error">Has iniciado sesión con éxito.</strong>
+            <?php endif; ?>
 
-        <div class="container d-flex flex-column align-items-center justify-content-center">
-            <div class="form-container mt-5">
-                <p>Iniciar Sesión</p>
-                <form class="form">
-                    <label>Email</label>
-                    <input type="text" class="input" placeholder="Introduce tu email">
-                    <label>Contraseña</label>
-                    <input type="password" class="input" placeholder="Contraseña">
-                    <button>Entrar</button>
-                </form>
-            </div>
+            <?php
+            // Verificar si hay un intento de inicio de sesión fallido en la sesión
+            if (isset($_SESSION['login']) && $_SESSION['login'] == 'failed') :
+            ?>
+                <!-- Mostrar mensaje de error si el inicio de sesión ha fallado -->
+                <strong style="text-align:center; color:red;" class="error">No se ha podido iniciar sesión</strong>
+
+                <?php
+                // Eliminar la variable 'login' de la sesión después de mostrar el mensaje de error
+                Utils::deleteSession('login');
+                ?>
+            <?php endif; ?>
+
+            <?php if (isset($errores)) : ?>
+                <?php foreach ($errores as $error) : ?>
+                    <span style="text-align:center; color:red;"><?= $error ?></span>
+                <?php endforeach; ?>
+            <?php endif; ?>
 
             <footer class="footer">
                 <div class="container text-center py-5">
@@ -158,7 +188,7 @@
                     <!--//social-list-->
                 </div>
             </footer>
-        </div>
+            </div>
     </div>
 
     <!-- Javascript -->
