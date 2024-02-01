@@ -158,15 +158,14 @@ class Usuario
      */
     public function create(): bool
     {
-        $id = NULL;
+        // die("entra");
         $nombre = $this->getNombre();
         $email = $this->getEmail();
         $password = $this->getPassword();
 
         try {
-            $ins = $this->db->prepare("INSERT INTO usuarios (id, nombre, apellidos, email, password) values (:id, :nombre, :email, :password)");
+            $ins = $this->db->prepare("INSERT INTO usuarios (nombre, correo, contrasena) values (:nombre, :email, :password)");
 
-            $ins->bindValue(':id', $id, PDO::PARAM_INT);
             $ins->bindValue(':nombre', $nombre, PDO::PARAM_STR);
             $ins->bindValue(':email', $email, PDO::PARAM_STR);
             $ins->bindValue(':password', $password, PDO::PARAM_STR);

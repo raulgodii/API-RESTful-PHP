@@ -1,3 +1,8 @@
+<?php
+    // Importar el espacio de nombres Utils
+    use Utils\Utils;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,9 +110,9 @@
                 <p>Registro</p>
                 <form class="form" action="<?= BASE_URL ?>/registro" method="POST">
                     <label>Nombre</label>
-                    <input type="text" name="data[nombre]" value='<?php if(isset($datos)) echo $datos['nombre']?>' class="input" placeholder="Introduce tu email">
+                    <input type="text" name="data[nombre]" value='<?php if (isset($datos)) echo $datos['nombre'] ?>' class="input" placeholder="Introduce tu email">
                     <label>Email</label>
-                    <input type="text" name="data[email]" value='<?php if(isset($datos)) echo $datos['email']?>' class="input" placeholder="Introduce tu email">
+                    <input type="text" name="data[email]" value='<?php if (isset($datos)) echo $datos['email'] ?>' class="input" placeholder="Introduce tu email">
                     <label>Contraseña</label>
                     <input type="password" name="data[password]" class="input" placeholder="Contraseña">
                     <button>Enviar</button>
@@ -115,14 +120,34 @@
 
 
             </div>
-            
+
+            <?php
+            // Verificar si el registro se ha completado con éxito
+            if (isset($_SESSION['register']) && $_SESSION['register'] === 'complete') :
+            ?>
+                <!-- Mostrar mensaje de éxito si el registro se ha completado -->
+                <strong style="text-align:center; color:green;" class="mensaje">Registro completado correctamente</strong>
+                <?php
+                // Eliminar la variable 'register' de la sesión después de mostrar el mensaje
+                Utils::deleteSession("register");
+                ?>
+            <?php
+            // Verificar si el registro ha fallado
+            elseif (isset($_SESSION['register']) && $_SESSION['register'] === 'failed') :
+            ?>
+                <!-- Mostrar mensaje de error si el registro ha fallado -->
+                <strong style="text-align:center; color:red;" class="error">No se ha podido registrar</strong>
+                <?php
+                // Eliminar la variable 'register' de la sesión después de mostrar el mensaje
+                Utils::deleteSession("register");
+                ?>
+            <?php endif; ?>
+
             <?php if (isset($errores)) : ?>
                 <?php foreach ($errores as $error) : ?>
                     <span style="text-align:center; color:red;"><?= $error ?></span>
                 <?php endforeach; ?>
             <?php endif; ?>
-
-
 
             <footer class="footer">
                 <div class="container text-center py-5">

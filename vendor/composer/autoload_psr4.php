@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Views\\' => array($baseDir . '/src/Views'),
+    'Utils\\' => array($baseDir . '/src/Utils'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),

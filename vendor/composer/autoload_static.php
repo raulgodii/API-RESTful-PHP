@@ -17,6 +17,10 @@ class ComposerStaticInit4eb27a4a5e77d964038f2c97f525241f
         array (
             'Views\\' => 6,
         ),
+        'U' => 
+        array (
+            'Utils\\' => 6,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -62,6 +66,10 @@ class ComposerStaticInit4eb27a4a5e77d964038f2c97f525241f
         'Views\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Views',
+        ),
+        'Utils\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Utils',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (

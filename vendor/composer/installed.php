@@ -3,7 +3,7 @@
         'name' => 'raulg/php-examen',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f8eda1fd4944445e71442d104151adaee9f1ec80',
+        'reference' => '83c00cf6aee0c54284500833b7c4723fe3b5408f',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'raulg/php-examen' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f8eda1fd4944445e71442d104151adaee9f1ec80',
+            'reference' => '83c00cf6aee0c54284500833b7c4723fe3b5408f',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
