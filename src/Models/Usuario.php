@@ -232,7 +232,6 @@ class Usuario
             $datosUsuario = $this->buscaMail($email);
 
             if ($datosUsuario) {
-                var_dump($this->buscaMail($email));
                 $verify = password_verify($password, $datosUsuario->contrasena);
 
                 if ($verify) {

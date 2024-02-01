@@ -58,6 +58,10 @@ class Routes{
         Router::add('POST', '/registro/', function(){
             return (new UsuarioController())->registrarUsuario();
         });
+
+        Router::add('GET', '/cerrarSesion/', function(){
+            return (new UsuarioController())->logout();
+        });
         
         Router::dispatch();
 

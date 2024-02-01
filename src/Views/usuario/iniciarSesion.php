@@ -96,12 +96,19 @@ use Utils\Utils;
                     <div class="site-logo"><a class="navbar-brand" href="<?= BASE_URL ?>"><img class="logo-icon me-2" src="<?= BASE_URL ?>/images/coderdocs-logo.svg" alt="logo"><span class="logo-text">Power<span class="text-alt">Hispania API</span></span></a></div>
                 </div><!--//docs-logo-wrapper-->
                 <div class="docs-top-utilities d-flex justify-content-end align-items-center">
-                    <a href="<?= BASE_URL ?>/iniciarSesion" class="btn btn-primary d-none d-lg-flex m-2">Iniciar Sesión</a>
-                    <a href="<?= BASE_URL ?>/registro" class="btn btn-primary d-none d-lg-flex m-2">Registro</a>
+                    <?php if (!isset($_SESSION['login']) or $_SESSION['login'] == 'failed') : ?>
+                        <a href="<?= BASE_URL ?>/iniciarSesion" class="btn btn-primary d-none d-lg-flex m-2">Iniciar Sesión</a>
+                        <a href="<?= BASE_URL ?>/registro" class="btn btn-primary d-none d-lg-flex m-2">Registro</a>
+                    <?php else : ?>
+                        <a href="<?= BASE_URL ?>/cerrarSesion" class="btn btn-primary d-none d-lg-flex m-2">Cerrar Sesión</a>
+                    <?php endif; ?>
+                    
                 </div><!--//docs-top-utilities-->
             </div><!--//container-->
         </div><!--//branding-->
     </header><!--//header-->
+
+
 
     <div class="docs-wrapper">
 
@@ -121,8 +128,13 @@ use Utils\Utils;
                         <button>Entrar</button>
                     </form>
                 </div>
-                <?php else: ?>
-                    <strong style="text-align:center; color:green;" class="error">Has iniciado sesión con éxito.</strong>
+            <?php else : ?>
+                
+                <div class="container d-flex flex-column align-items-center justify-content-center">
+                <br><br><br><br><br>
+                <strong style="text-align:center; color:green;" class="error">Has iniciado sesión con éxito.</strong>
+                </div>
+                
             <?php endif; ?>
 
             <?php

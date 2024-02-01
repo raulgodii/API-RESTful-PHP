@@ -28,20 +28,20 @@
 </head>
 
 <body class="docs-page">
-    <header class="header fixed-top">
+<header class="header fixed-top">
         <div class="branding docs-branding">
             <div class="container-fluid position-relative py-2">
                 <div class="docs-logo-wrapper">
-                    <button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <div class="site-logo"><a class="navbar-brand" href="index.html"><img class="logo-icon me-2" src="<?= BASE_URL ?>/images/coderdocs-logo.svg" alt="logo"><span class="logo-text">Power<span class="text-alt">Hispania API</span></span></a></div>
+                    <div class="site-logo"><a class="navbar-brand" href="<?= BASE_URL ?>"><img class="logo-icon me-2" src="<?= BASE_URL ?>/images/coderdocs-logo.svg" alt="logo"><span class="logo-text">Power<span class="text-alt">Hispania API</span></span></a></div>
                 </div><!--//docs-logo-wrapper-->
                 <div class="docs-top-utilities d-flex justify-content-end align-items-center">
-                    <a href="<?=BASE_URL?>/iniciarSesion" class="btn btn-primary d-none d-lg-flex m-2">Iniciar Sesión</a>
-                    <a href="<?=BASE_URL?>/registro" class="btn btn-primary d-none d-lg-flex m-2">Registro</a>
+                    <?php if (!isset($_SESSION['login']) or $_SESSION['login'] == 'failed') : ?>
+                        <a href="<?= BASE_URL ?>/iniciarSesion" class="btn btn-primary d-none d-lg-flex m-2">Iniciar Sesión</a>
+                        <a href="<?= BASE_URL ?>/registro" class="btn btn-primary d-none d-lg-flex m-2">Registro</a>
+                    <?php else : ?>
+                        <a href="<?= BASE_URL ?>/cerrarSesion" class="btn btn-primary d-none d-lg-flex m-2">Cerrar Sesión</a>
+                    <?php endif; ?>
+                    
                 </div><!--//docs-top-utilities-->
             </div><!--//container-->
         </div><!--//branding-->
