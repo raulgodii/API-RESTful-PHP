@@ -12,7 +12,7 @@ class Routes{
     public static function index(){
 
         Router::add('GET', '/', function(){
-            return (new ErrorController())->error404();
+            return (new APIController())->home();
         });
 
         Router::add('GET', '/error/', function(){
@@ -43,8 +43,12 @@ class Routes{
             return (new AuthController())->pruebas();
         });
 
-        Router::add('GET', '/header/', function(){
-            return (new APIController())->header();
+        Router::add('GET', '/iniciarSesion/', function(){
+            return (new UsuarioController())->iniciarSesion();
+        });
+
+        Router::add('GET', '/registro/', function(){
+            return (new UsuarioController())->registro();
         });
         
         Router::dispatch();

@@ -49,7 +49,7 @@ class APIController
         $this->pages->render("competiciones/modificar_competicion", ["rowCount" => $rowCount]);
     }
 
-    public function header(){
-        $this->pages->render("layout/header");
+    public function home(){
+        $this->pages->render("layout/home");
     }
 }
