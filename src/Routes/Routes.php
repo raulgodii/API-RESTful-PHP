@@ -50,6 +50,10 @@ class Routes{
         Router::add('GET', '/registro/', function(){
             return (new UsuarioController())->registro();
         });
+
+        Router::add('POST', '/registro/', function(){
+            return (new UsuarioController())->registrarUsuario();
+        });
         
         Router::dispatch();
 

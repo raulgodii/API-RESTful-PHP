@@ -99,22 +99,30 @@
     </header><!--//header-->
 
     <div class="docs-wrapper">
-
-
-
         <div class="container d-flex flex-column align-items-center justify-content-center">
             <div class="form-container mt-5">
+
                 <p>Registro</p>
-                <form class="form">
+                <form class="form" action="<?= BASE_URL ?>/registro" method="POST">
                     <label>Nombre</label>
-                    <input type="text" class="input" placeholder="Introduce tu email">
+                    <input type="text" name="data[nombre]" value='<?php if(isset($datos)) echo $datos['nombre']?>' class="input" placeholder="Introduce tu email">
                     <label>Email</label>
-                    <input type="text" class="input" placeholder="Introduce tu email">
+                    <input type="text" name="data[email]" value='<?php if(isset($datos)) echo $datos['email']?>' class="input" placeholder="Introduce tu email">
                     <label>Contraseña</label>
-                    <input type="password" class="input" placeholder="Contraseña">
+                    <input type="password" name="data[password]" class="input" placeholder="Contraseña">
                     <button>Enviar</button>
                 </form>
+
+
             </div>
+            
+            <?php if (isset($errores)) : ?>
+                <?php foreach ($errores as $error) : ?>
+                    <span style="text-align:center; color:red;"><?= $error ?></span>
+                <?php endforeach; ?>
+            <?php endif; ?>
+
+
 
             <footer class="footer">
                 <div class="container text-center py-5">
