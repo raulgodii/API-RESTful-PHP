@@ -160,19 +160,20 @@ use Utils\Utils;
                 ?>
             <?php endif; ?>
 
-            <?php if (isset($errores)) : ?>
-                <?php foreach ($errores as $error) : ?>
-                    <span style="text-align:center; color:red;"><?= $error ?></span>
-                <?php endforeach; ?>
-            <?php endif; ?>
+
 
             <?php if (isset($errores['expirado'])) : ?>
                 <span style="text-align:center; color:red;">Token Expirado</span>
 
-                <form action="<?=BASE_URL?>/ReenviarCorreo" method="get">
+                <form action="<?= BASE_URL ?>/ReenviarCorreo" method="get">
                     <button type="submit">Reenviar Correo</button>
                 </form>
-                
+            <?php else : ?>
+                <?php if (isset($errores)) : ?>
+                    <?php foreach ($errores as $error) : ?>
+                        <span style="text-align:center; color:red;"><?= $error ?></span>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             <?php endif; ?>
 
             <footer class="footer">

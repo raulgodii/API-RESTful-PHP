@@ -5,6 +5,7 @@ namespace Lib;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use PDOException;
+use Firebase\JWT\ExpiredException;
 
 class Security
 {
@@ -24,6 +25,17 @@ class Security
     }
 
     final public static function crearToken(string $key, array $data): string
+    {
+        $time = strtotime("now");
+        $token = array(
+            "iat" => $time,
+            "exp" => $time + 1800,
+            "data" => $data
+        );
+        return JWT::encode($token, $key, "HS256");
+    }
+
+    final public static function crearTokenExpirado(string $key, array $data): string
     {
         $time = strtotime("now");
         $token = array(

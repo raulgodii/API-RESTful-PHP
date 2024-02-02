@@ -9,6 +9,7 @@ use PDOException;
 use Lib\Security;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Firebase\JWT\ExpiredException;
 
 
 /**
@@ -171,14 +172,15 @@ class Usuario
 
         // Verificar si el token ha expirado
         $tiempoActual = time();
+       
         if ($expiracion <= $tiempoActual) {
             return "Error: El token ha expirado, vuelva a registrarse.";
         }
 
         // Si todas las verificaciones pasan, marcar el usuario como confirmado
-        $this->marcarUsuarioConfirmado($correo);
+        
 
-        return "Éxito: El usuario $usuario con correo $correo ha sido confirmado satisfactoriamente.";
+        return $this->marcarUsuarioConfirmado($correo, $usuario);
     }
 
     // Función para verificar si un usuario está registrado
@@ -249,19 +251,26 @@ class Usuario
 
 
     // Función para marcar a un usuario como confirmado
-    private function marcarUsuarioConfirmado($correo)
+    private function marcarUsuarioConfirmado($correo, $usuario)
     {
         try {
+            $fechaExpiracion = strtotime("now") - 1800;
+            $tokenExpirado = Security::crearTokenExpirado(Security::claveSecreta(), [$usuario, $correo]);
+
             // Actualizar el campo 'confirmado' a true para el usuario con el correo especificado
-            $update = $this->db->prepare("UPDATE usuarios SET confirmado = true WHERE correo = :email");
-            $update->bindValue(':email', $correo, PDO::PARAM_STR);
+            $update = $this->db->prepare("UPDATE usuarios SET confirmado = true, fecha_expiracion_token = :fechaExpiracion, token = :tokenExpirado WHERE correo = :correo");
+            $update->bindValue(':correo', $correo, PDO::PARAM_STR);
+            $update->bindValue(':fechaExpiracion', $fechaExpiracion, PDO::PARAM_STR);
+            $update->bindValue(':tokenExpirado', $tokenExpirado, PDO::PARAM_STR);
+            
+
             $update->execute();
 
             // Verificar si la actualización fue exitosa
-            $result = ($update && $update->rowCount() > 0);
+            $result = "Éxito: El usuario $usuario con correo $correo ha sido confirmado satisfactoriamente.";
         } catch (PDOException $err) {
             // Manejar el error si ocurre una excepción
-            $result = false;
+            $result = "Error: El usuario $usuario con correo $correo no ha podido ser confirmado.";
         }
 
         return $result;
@@ -484,32 +493,32 @@ class Usuario
     function tokenExpirado($correo) {
         try {
             // Obtener la fecha de expiración del token de la base de datos
-            $select = $this->db->prepare("SELECT fecha_expiracion_token FROM usuarios WHERE correo = :email");
-            $select->bindValue(':email', $correo, PDO::PARAM_STR);
+            $select = $this->db->prepare("SELECT token FROM usuarios WHERE correo = :correo");
+            $select->bindValue(':correo', $correo, PDO::PARAM_STR);
             $select->execute();
     
             if ($select && $select->rowCount() == 1) {
-                $fechaExpiracion = $select->fetch(PDO::FETCH_OBJ)->fecha_expiracion_token;
-    
-                // Convertir la fecha de expiración a una marca de tiempo UNIX
-                $marcaTiempoExpiracion = strtotime($fechaExpiracion);
-    
-                // Obtener el tiempo actual
-                $tiempoActual = time();
-    
-                // Verificar si el token ha expirado
-                if ($marcaTiempoExpiracion <= $tiempoActual) {
-                    return "Error: El token ha expirado, vuelva a registrarse.";
-                } else {
-                    // El token aún no ha expirado
+                $token = $select->fetch(PDO::FETCH_OBJ)->token;
+
+                try {
+                    Security::descrifrarToken($token);
+                    // El token es válido y no ha expirado
+                    return false;
+                } catch (ExpiredException $e) {
+                    // El token ha expirado, manejar aquí la lógica correspondiente
+                    return true;
+                } catch (Exception $e) {
+                    // Otras excepciones
                     return false;
                 }
+
+            
             } else {
-                return true;
+                return false;
             }
         } catch (PDOException $err) {
             // Manejar el error si ocurre una excepción
-            return true;
+            return false;
         }
     }
     
