@@ -147,49 +147,124 @@ class Usuario
         );
     }
 
-    public function confirmarCorreo($tokenDecoded){
+    public function confirmarCorreo($tokenDecoded, $token)
+    {
         // Obtener datos del token
         $correo = $tokenDecoded->data[1];
         $usuario = $tokenDecoded->data[0];
         $expiracion = $tokenDecoded->exp;
-    
+
         // Verificar si el usuario está registrado
-        if (!self::usuarioRegistrado($correo)) {
+        if (!$this->usuarioRegistrado($correo)) {
             return "Error: El usuario con correo $correo no está registrado.";
         }
-    
+
         // Verificar si el usuario ya está confirmado
-        if (self::usuarioConfirmado($correo)) {
+        if ($this->usuarioConfirmado($correo)) {
             return "Error: El usuario con correo $correo ya está confirmado.";
         }
-    
+
+        // Verificar si el token es el mismo
+        if (!$this->comprobarToken($correo, $token)) {
+            return "Error: El token para iniciar sesión no es válido.";
+        }
+
         // Verificar si el token ha expirado
         $tiempoActual = time();
         if ($expiracion <= $tiempoActual) {
             return "Error: El token ha expirado.";
         }
-    
+
         // Si todas las verificaciones pasan, marcar el usuario como confirmado
-        self::marcarUsuarioConfirmado($correo);
-    
+        $this->marcarUsuarioConfirmado($correo);
+
         return "Éxito: El usuario $usuario con correo $correo ha sido confirmado satisfactoriamente.";
     }
-    
+
     // Función para verificar si un usuario está registrado
-    private static function usuarioRegistrado($correo) {
-        // Implementar la lógica para verificar si el usuario está registrado en tu sistema
-        // Devolver true si está registrado, false en caso contrario
+    private function usuarioRegistrado($correo)
+    {
+        try {
+            $select = $this->db->prepare("SELECT * FROM usuarios WHERE correo=:email");
+            $select->bindValue(':email', $correo, PDO::PARAM_STR);
+            $select->execute();
+            if ($select && $select->rowCount() == 1) {
+                $result = $select->fetch(PDO::FETCH_OBJ);
+            } else {
+                $result = false;
+            }
+        } catch (PDOException $err) {
+
+            $result = false;
+        }
+        return $result;
     }
-    
+
     // Función para verificar si un usuario ya está confirmado
-    private static function usuarioConfirmado($correo) {
-        // Implementar la lógica para verificar si el usuario ya está confirmado en tu sistema
-        // Devolver true si está confirmado, false en caso contrario
+    private function usuarioConfirmado($correo)
+    {
+        try {
+            $select = $this->db->prepare("SELECT confirmado FROM usuarios WHERE correo=:email");
+            $select->bindValue(':email', $correo, PDO::PARAM_STR);
+            $select->execute();
+
+            if ($select && $select->rowCount() == 1) {
+                // Obtener el valor de confirmado directamente en la consulta SQL
+                $result = $select->fetch(PDO::FETCH_OBJ)->confirmado;
+            } else {
+                $result = false;
+            }
+        } catch (PDOException $err) {
+            // Manejar el error si ocurre una excepción
+            $result = false;
+        }
+
+        return $result;
     }
-    
+
+    // Función para verificar si el token es el mismo
+    private function comprobarToken($correo, $token)
+    {
+        try {
+            $select = $this->db->prepare("SELECT token FROM usuarios WHERE correo=:correo");
+            $select->bindValue(':correo', $correo, PDO::PARAM_STR);
+            $select->execute();
+
+            if ($select && $select->rowCount() == 1) {
+                // Obtener el token de la base de datos
+                $tokenBD = $select->fetch(PDO::FETCH_OBJ)->token;
+
+                // Comparar el token de la base de datos con el proporcionado
+                $result = ($tokenBD === $token);
+            } else {
+                $result = false;
+            }
+        } catch (PDOException $err) {
+            // Manejar el error si ocurre una excepción
+            $result = false;
+        }
+
+        return $result;
+    }
+
+
     // Función para marcar a un usuario como confirmado
-    private static function marcarUsuarioConfirmado($correo) {
-        // Implementar la lógica para marcar al usuario como confirmado en tu sistema
+    private function marcarUsuarioConfirmado($correo)
+    {
+        try {
+            // Actualizar el campo 'confirmado' a true para el usuario con el correo especificado
+            $update = $this->db->prepare("UPDATE usuarios SET confirmado = true WHERE correo = :email");
+            $update->bindValue(':email', $correo, PDO::PARAM_STR);
+            $update->execute();
+
+            // Verificar si la actualización fue exitosa
+            $result = ($update && $update->rowCount() > 0);
+        } catch (PDOException $err) {
+            // Manejar el error si ocurre una excepción
+            $result = false;
+        }
+
+        return $result;
     }
 
     /**
@@ -212,14 +287,16 @@ class Usuario
         $email = $this->getEmail();
         $password = $this->getPassword();
         $token = Security::crearToken(Security::claveSecreta(), [$nombre, $email]);
+        $fecha_expiracion_token = strtotime("now") + 1800;
 
         try {
-            $ins = $this->db->prepare("INSERT INTO usuarios (nombre, correo, contrasena, token, confirmado) values (:nombre, :email, :password, :token, 0)");
+            $ins = $this->db->prepare("INSERT INTO usuarios (nombre, correo, contrasena, token, confirmado, fecha_expiracion_token) values (:nombre, :email, :password, :token, 0, :fecha_expiracion_token)");
 
             $ins->bindValue(':nombre', $nombre, PDO::PARAM_STR);
             $ins->bindValue(':email', $email, PDO::PARAM_STR);
             $ins->bindValue(':password', $password, PDO::PARAM_STR);
             $ins->bindValue(':token', $token, PDO::PARAM_STR);
+            $ins->bindValue(':fecha_expiracion_token', $fecha_expiracion_token, PDO::PARAM_STR);
 
             $ins->execute();
 
@@ -259,7 +336,7 @@ class Usuario
             $mail->isHTML(true);                                  //Set email format to HTML
             $mail->Subject = "Confirma su correo para iniciar sesion";
             $mail->Body    = "Hola $nombre! Dale click a este enlace para confirmar su correo electronico:
-                <a href='http://localhost/API-RESTful-PHP/confirmarCorreo/".$token."'>Confirmar</a>
+                <a href='http://localhost/API-RESTful-PHP/confirmarCorreo/" . $token . "'>Confirmar</a>
             ";
 
             $mail->send();
@@ -349,11 +426,11 @@ class Usuario
             if ($select && $select->rowCount() == 1) {
                 $result = $select->fetch(PDO::FETCH_OBJ);
             } else {
-                
+
                 $result = false;
             }
         } catch (PDOException $err) {
-            
+
             $result = false;
         }
         return $result;

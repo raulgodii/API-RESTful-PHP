@@ -16,7 +16,10 @@ class AuthController{
 
     public function confirmarCorreo($token){
         $decoded = Security::descrifrarToken($token);
-        $errores = Usuario::confirmarCorreo($decoded);
-        $this->pages->render('usuario/confirmarCorreo', ['token' => $token]);
+        var_dump($decoded);
+
+        $usuario = Usuario::fromArray([]);
+        $errores = $usuario->confirmarCorreo($decoded, $token);
+        $this->pages->render('usuario/confirmarCorreo', ['token' => $token, 'errores' => $errores]);
     }
 }
