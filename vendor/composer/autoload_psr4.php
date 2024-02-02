@@ -14,6 +14,7 @@ return array(
     'Routes\\' => array($baseDir . '/src/Routes'),
     'Raulg\\PhpExamen\\' => array($baseDir . '/src'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src/PhpOption'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Models\\' => array($baseDir . '/src/Models'),
     'Lib\\' => array($baseDir . '/src/Lib'),
     'GrahamCampbell\\ResultType\\' => array($vendorDir . '/graham-campbell/result-type/src'),

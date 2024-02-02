@@ -7,6 +7,9 @@ use Lib\DataBase;
 use PDO;
 use PDOException;
 use Lib\Security;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 
 /**
  * Clase Usuario que representa a un usuario en un sistema de gestión de usuarios.
@@ -163,7 +166,7 @@ class Usuario
         $nombre = $this->getNombre();
         $email = $this->getEmail();
         $password = $this->getPassword();
-        $token = Security::crearToken($_ENV['DB_HOST'], [$nombre, $email]);
+        $token = Security::crearToken(Security::claveSecreta(), [$nombre, $email]);
 
         try {
             $ins = $this->db->prepare("INSERT INTO usuarios (nombre, correo, contrasena, token, confirmado) values (:nombre, :email, :password, :token, 0)");
@@ -176,6 +179,7 @@ class Usuario
             $ins->execute();
 
             $result = true;
+            $this->enviarMail($nombre, $email, $token);
         } catch (PDOException $error) {
             $result = false;
         }
@@ -185,6 +189,38 @@ class Usuario
         $this->db->close();
 
         return $result;
+    }
+
+    private function enviarMail($nombre, $correo, $token)
+    {
+        $mail = new PHPMailer(true);
+
+        try {
+            //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'raulgodii13@gmail.com';                     //SMTP username
+            $mail->Password   = 'vxgfbwpltnhcgvtz';                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+            //Recipients
+            $mail->setFrom('raulgodii13@gmail.com', 'Raul');
+            $mail->addAddress($correo, 'Raul');     //Add a recipient
+            $mail->addReplyTo('raulgodii13@gmail.com', 'Information');
+
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = "Confirma su correo para iniciar sesion";
+            $mail->Body    = "Hola $nombre! Dale click a este enlace para confirmar su correo electronico:
+                <a href='http://localhost/API-RESTful-PHP/confirmarCorreo/".$token."'>Confirmar</a>
+            ";
+
+            $mail->send();
+        } catch (Exception $e) {
+            echo "Error al enviar el correo: {$mail->ErrorInfo}";
+        }
     }
 
     /**

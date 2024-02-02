@@ -3,7 +3,7 @@
         'name' => 'raulg/php-examen',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '83c00cf6aee0c54284500833b7c4723fe3b5408f',
+        'reference' => '78ee47af4f60013695cd4b6697bddadec4b4a6e4',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -28,6 +28,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.9.1',
+            'version' => '6.9.1.0',
+            'reference' => '039de174cd9c17a8389754d3b877a2ed22743e18',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'phpoption/phpoption' => array(
             'pretty_version' => '1.9.2',
             'version' => '1.9.2.0',
@@ -40,7 +49,7 @@
         'raulg/php-examen' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '83c00cf6aee0c54284500833b7c4723fe3b5408f',
+            'reference' => '78ee47af4f60013695cd4b6697bddadec4b4a6e4',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

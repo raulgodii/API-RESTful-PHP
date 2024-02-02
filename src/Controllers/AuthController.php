@@ -4,9 +4,17 @@ use Lib\Pages;
 use Lib\Security;
 
 class AuthController{
-    public function pruebas(){
-        echo Security::crearToken(Security::claveSecreta(), ['id=>19']);
-        echo "<br>";
+
+    /** @var Pages Instancia de la clase Pages para la gestión de páginas. */
+    private Pages $pages;
+
+    public function __construct()
+    {
+        $this->pages = new Pages();
+    }
+
+    public function confirmarCorreo($token){
         var_dump(Security::getToken());
+        $this->pages->render('usuario/confirmarCorreo', ['token' => $token]);
     }
 }

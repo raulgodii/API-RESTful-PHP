@@ -1,47 +1,44 @@
 <?php
+
 namespace Lib;
-// para almacenar las rutas que configuremos desde el archivo index.php
+
 class Router {
 
     private static $routes = [];
-    //para ir añadiendo los métodos y las rutas en el tercer parámetro.
-    public static function add(string $method, string $action, Callable $controller):void{
-        //die($action);
+
+    public static function add(string $method, string $action, Callable $controller): void {
         $action = trim($action, '/');
-       
         self::$routes[$method][$action] = $controller;
-       
     }
-   
-    // Este método se encarga de obtener el sufijo de la URL que permitirá seleccionar
-    // la ruta y mostrar el resultado de ejecutar la función pasada al metodo add para esa ruta
-    // usando call_user_func()
-    public static function dispatch():void {
+
+    public static function dispatch(): void {
         $method = $_SERVER['REQUEST_METHOD']; 
-        //print_r($_SERVER);die($method);
-        
-        $action = preg_replace('/API-RESTful-PHP/','',$_SERVER['REQUEST_URI']);
-        
-       //$_SERVER['REQUEST_URI'] almacena la cadena de texto que hay después del nombre del host en la URL
-        $action = trim($action, '/');
-        
+        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); // Obtiene la parte de la URL sin el query string
+        $action = trim(str_replace('/API-RESTful-PHP', '', $url), '/'); // Remueve '/API' del inicio de la ruta
         $param = null;
-        preg_match('/[0-9]+$/', $action, $match);
-       
-        if(!empty($match)){
-            
+    
+        // Intenta encontrar una ruta con un parámetro al final
+        preg_match('/[^\/]+$/', $action, $match);
+        if (!empty($match)) {
             $param = $match[0];
-            $action=preg_replace('/'.$match[0].'/',':id',$action);//quitamos la primera parte que se repite siempre (clinicarouter)
+            $actionWithParam = preg_replace('/'.$match[0].'$/','{id}',$action);
+            $callback = self::$routes[$method][$actionWithParam] ?? null;
+            if (!isset($callback)) {
+                $actionWithParam = preg_replace('/'.$match[0].'$/','{token}',$action);
+                $callback = self::$routes[$method][$actionWithParam] ?? null;
+            }
         }
-
-        $fn = self::$routes[$method][$action];
-
-        if($fn) {
-            $callback = self::$routes[$method][$action];
+    
+        // Si no se encontró una ruta con un parámetro, intenta encontrar una ruta sin parámetro
+        if (!isset($callback)) {
+            $callback = self::$routes[$method][$action] ?? null;
+        }
+    
+        if ($callback) {
             echo call_user_func($callback, $param);
         } else {
-            header('Location: /API-RESTful-PHP/error/');
+            http_response_code(404);
+            echo "404 Not Found";
         }
-
     }
 }

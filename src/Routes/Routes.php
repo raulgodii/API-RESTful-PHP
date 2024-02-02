@@ -23,11 +23,11 @@ class Routes{
             return (new APIController())->mostrar_competiciones();
         });
 
-        Router::add('GET', '/competicion/:id', function($id){
+        Router::add('GET', '/competicion/{id}', function($id){
             return (new APIController())->mostrar_competicion($id);
         });
 
-        Router::add('DELETE', '/competicion/:id', function($id){
+        Router::add('DELETE', '/competicion/{id}', function($id){
             return (new APIController())->eliminar_competicion($id);
         });
 
@@ -35,12 +35,8 @@ class Routes{
             return (new APIController())->crear_competicion();
         });
 
-        Router::add('PUT', '/competicion/:id', function($id){
+        Router::add('PUT', '/competicion/{id}', function($id){
             return (new APIController())->modificar_competicion($id);
-        });
-
-        Router::add('GET', '/prueba/', function(){
-            return (new AuthController())->pruebas();
         });
 
         Router::add('GET', '/iniciarSesion/', function(){
@@ -61,6 +57,10 @@ class Routes{
 
         Router::add('GET', '/cerrarSesion/', function(){
             return (new UsuarioController())->logout();
+        });
+
+        Router::add('GET', '/confirmarCorreo/{token}', function($token){
+            return (new AuthController())->confirmarCorreo($token);
         });
         
         Router::dispatch();
