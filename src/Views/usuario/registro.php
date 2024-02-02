@@ -1,6 +1,6 @@
 <?php
-    // Importar el espacio de nombres Utils
-    use Utils\Utils;
+// Importar el espacio de nombres Utils
+use Utils\Utils;
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +89,7 @@
 </head>
 
 <body class="docs-page">
-<header class="header fixed-top">
+    <header class="header fixed-top">
         <div class="branding docs-branding">
             <div class="container-fluid position-relative py-2">
                 <div class="docs-logo-wrapper">
@@ -102,40 +102,40 @@
                     <?php else : ?>
                         <a href="<?= BASE_URL ?>/cerrarSesion" class="btn btn-primary d-none d-lg-flex m-2">Cerrar Sesión</a>
                     <?php endif; ?>
-                    
+
                 </div><!--//docs-top-utilities-->
             </div><!--//container-->
         </div><!--//branding-->
     </header><!--//header-->
 
     <div class="docs-wrapper">
-    <?php
+        <?php
         // Verificar si no hay sesión activa o si el inicio de sesión ha fallado
         if (!isset($_SESSION['login']) or $_SESSION['login'] == 'failed') :
         ?>
-        <div class="container d-flex flex-column align-items-center justify-content-center">
-            <div class="form-container mt-5">
+            <div class="container d-flex flex-column align-items-center justify-content-center">
+                <div class="form-container mt-5">
 
-                <p>Registro</p>
-                <form class="form" action="<?= BASE_URL ?>/registro" method="POST">
-                    <label>Nombre</label>
-                    <input type="text" name="data[nombre]" value='<?php if (isset($datos)) echo $datos['nombre'] ?>' class="input" placeholder="Introduce tu email">
-                    <label>Email</label>
-                    <input type="text" name="data[email]" value='<?php if (isset($datos)) echo $datos['email'] ?>' class="input" placeholder="Introduce tu email">
-                    <label>Contraseña</label>
-                    <input type="password" name="data[password]" class="input" placeholder="Contraseña">
-                    <button>Enviar</button>
-                </form>
+                    <p>Registro</p>
+                    <form class="form" action="<?= BASE_URL ?>/registro" method="POST">
+                        <label>Nombre</label>
+                        <input type="text" name="data[nombre]" value='<?php if (isset($datos)) echo $datos['nombre'] ?>' class="input" placeholder="Introduce tu email">
+                        <label>Email</label>
+                        <input type="text" name="data[email]" value='<?php if (isset($datos)) echo $datos['email'] ?>' class="input" placeholder="Introduce tu email">
+                        <label>Contraseña</label>
+                        <input type="password" name="data[password]" class="input" placeholder="Contraseña">
+                        <button>Enviar</button>
+                    </form>
 
 
-            </div>
-            <?php else : ?>
-                
-                <div class="container d-flex flex-column align-items-center justify-content-center">
-                <br><br><br><br><br>
-                <strong style="text-align:center; color:green;" class="error">Has iniciado sesión con éxito.</strong>
                 </div>
-                
+            <?php else : ?>
+
+                <div class="container d-flex flex-column align-items-center justify-content-center">
+                    <br><br><br><br><br>
+                    <strong style="text-align:center; color:green;" class="error">Has iniciado sesión con éxito.</strong>
+                </div>
+
             <?php endif; ?>
 
             <?php
@@ -164,6 +164,15 @@
                 <?php foreach ($errores as $error) : ?>
                     <span style="text-align:center; color:red;"><?= $error ?></span>
                 <?php endforeach; ?>
+            <?php endif; ?>
+
+            <?php if (isset($errores['expirado'])) : ?>
+                <span style="text-align:center; color:red;">Token Expirado</span>
+
+                <form action="<?=BASE_URL?>/ReenviarCorreo" method="get">
+                    <button type="submit">Reenviar Correo</button>
+                </form>
+                
             <?php endif; ?>
 
             <footer class="footer">
@@ -210,7 +219,7 @@
                     <!--//social-list-->
                 </div>
             </footer>
-        </div>
+            </div>
     </div>
 
     <!-- Javascript -->

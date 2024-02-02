@@ -464,6 +464,10 @@ class Usuario
             $errores['email'] = 'El formato del email no es válido.';
         } elseif ($this->buscaMail($this->email) !== false) {
             $errores['email'] = 'Este correo ya ha sido registrado.';
+
+            if (!$this->usuarioConfirmado($this->email) && $this->tokenExpirado($this->email)) {
+                $errores['expirado'] = '';
+            }
         }
 
         // Validación de la contraseña
@@ -476,6 +480,39 @@ class Usuario
         // Devuelve el array de errores si los hay, o true si no hay errores
         return empty($errores) ? true : $errores;
     }
+
+    function tokenExpirado($correo) {
+        try {
+            // Obtener la fecha de expiración del token de la base de datos
+            $select = $this->db->prepare("SELECT fecha_expiracion_token FROM usuarios WHERE correo = :email");
+            $select->bindValue(':email', $correo, PDO::PARAM_STR);
+            $select->execute();
+    
+            if ($select && $select->rowCount() == 1) {
+                $fechaExpiracion = $select->fetch(PDO::FETCH_OBJ)->fecha_expiracion_token;
+    
+                // Convertir la fecha de expiración a una marca de tiempo UNIX
+                $marcaTiempoExpiracion = strtotime($fechaExpiracion);
+    
+                // Obtener el tiempo actual
+                $tiempoActual = time();
+    
+                // Verificar si el token ha expirado
+                if ($marcaTiempoExpiracion <= $tiempoActual) {
+                    return "Error: El token ha expirado, vuelva a registrarse.";
+                } else {
+                    // El token aún no ha expirado
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } catch (PDOException $err) {
+            // Manejar el error si ocurre una excepción
+            return true;
+        }
+    }
+    
 
     /**
      * Valida los datos del usuario durante el proceso de inicio de sesión.

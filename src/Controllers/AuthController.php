@@ -35,6 +35,6 @@ class AuthController
             $errores = 'Error al decodificar el token: ' . $e->getMessage();
         }
 
-        $this->pages->render('usuario/confirmarCorreo', ['token' => $token, 'errores' => $errores]);
+        $this->pages->render('usuario/confirmarCorreo', ['errores' => $errores]);
     }
 }
