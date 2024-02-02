@@ -6,6 +6,7 @@ use Lib\BaseDatos;
 use Lib\DataBase;
 use PDO;
 use PDOException;
+use Lib\Security;
 
 /**
  * Clase Usuario que representa a un usuario en un sistema de gestión de usuarios.
@@ -162,13 +163,15 @@ class Usuario
         $nombre = $this->getNombre();
         $email = $this->getEmail();
         $password = $this->getPassword();
+        $token = Security::crearToken($_ENV['DB_HOST'], [$nombre, $email]);
 
         try {
-            $ins = $this->db->prepare("INSERT INTO usuarios (nombre, correo, contrasena) values (:nombre, :email, :password)");
+            $ins = $this->db->prepare("INSERT INTO usuarios (nombre, correo, contrasena, token, confirmado) values (:nombre, :email, :password, :token, 0)");
 
             $ins->bindValue(':nombre', $nombre, PDO::PARAM_STR);
             $ins->bindValue(':email', $email, PDO::PARAM_STR);
             $ins->bindValue(':password', $password, PDO::PARAM_STR);
+            $ins->bindValue(':token', $token, PDO::PARAM_STR);
 
             $ins->execute();
 

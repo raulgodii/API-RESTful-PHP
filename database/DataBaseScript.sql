@@ -20,6 +20,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nombre VARCHAR(255) NOT NULL,
     correo VARCHAR(255) NOT NULL,
     contrasena VARCHAR(255) NOT NULL,
+    token VARCHAR(255),
+    confirmado BOOL,
     CONSTRAINT unique_email UNIQUE (correo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

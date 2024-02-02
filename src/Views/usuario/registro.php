@@ -143,7 +143,7 @@
             if (isset($_SESSION['register']) && $_SESSION['register'] === 'complete') :
             ?>
                 <!-- Mostrar mensaje de éxito si el registro se ha completado -->
-                <strong style="text-align:center; color:green;" class="mensaje">Registro completado correctamente</strong>
+                <strong style="text-align:center; color:green;" class="mensaje">Registro completado correctamente, confirme su correo electronico para iniciar sesión.</strong>
                 <?php
                 // Eliminar la variable 'register' de la sesión después de mostrar el mensaje
                 Utils::deleteSession("register");

@@ -27,8 +27,8 @@ class Security
     {
         $time = strtotime("now");
         $token = array(
-            "int" => $time,
-            "exp" => $time + 3600,
+            "iat" => $time,
+            "exp" => $time + 1800,
             "data" => $data
         );
         return JWT::encode($token, $key, "HS256");
