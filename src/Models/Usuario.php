@@ -147,6 +147,51 @@ class Usuario
         );
     }
 
+    public function confirmarCorreo($tokenDecoded){
+        // Obtener datos del token
+        $correo = $tokenDecoded->data[1];
+        $usuario = $tokenDecoded->data[0];
+        $expiracion = $tokenDecoded->exp;
+    
+        // Verificar si el usuario está registrado
+        if (!self::usuarioRegistrado($correo)) {
+            return "Error: El usuario con correo $correo no está registrado.";
+        }
+    
+        // Verificar si el usuario ya está confirmado
+        if (self::usuarioConfirmado($correo)) {
+            return "Error: El usuario con correo $correo ya está confirmado.";
+        }
+    
+        // Verificar si el token ha expirado
+        $tiempoActual = time();
+        if ($expiracion <= $tiempoActual) {
+            return "Error: El token ha expirado.";
+        }
+    
+        // Si todas las verificaciones pasan, marcar el usuario como confirmado
+        self::marcarUsuarioConfirmado($correo);
+    
+        return "Éxito: El usuario $usuario con correo $correo ha sido confirmado satisfactoriamente.";
+    }
+    
+    // Función para verificar si un usuario está registrado
+    private static function usuarioRegistrado($correo) {
+        // Implementar la lógica para verificar si el usuario está registrado en tu sistema
+        // Devolver true si está registrado, false en caso contrario
+    }
+    
+    // Función para verificar si un usuario ya está confirmado
+    private static function usuarioConfirmado($correo) {
+        // Implementar la lógica para verificar si el usuario ya está confirmado en tu sistema
+        // Devolver true si está confirmado, false en caso contrario
+    }
+    
+    // Función para marcar a un usuario como confirmado
+    private static function marcarUsuarioConfirmado($correo) {
+        // Implementar la lógica para marcar al usuario como confirmado en tu sistema
+    }
+
     /**
      * Desconecta el objeto de la base de datos cerrando la conexión.
      */

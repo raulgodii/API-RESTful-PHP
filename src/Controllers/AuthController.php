@@ -2,6 +2,7 @@
 namespace Controllers;
 use Lib\Pages;
 use Lib\Security;
+use Models\Usuario;
 
 class AuthController{
 
@@ -14,7 +15,8 @@ class AuthController{
     }
 
     public function confirmarCorreo($token){
-        var_dump(Security::getToken());
+        $decoded = Security::descrifrarToken($token);
+        $errores = Usuario::confirmarCorreo($decoded);
         $this->pages->render('usuario/confirmarCorreo', ['token' => $token]);
     }
 }
