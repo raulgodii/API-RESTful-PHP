@@ -542,6 +542,8 @@ class Usuario
             $errores['email'] = 'El formato del email no es válido.';
         } elseif (!$this->buscaMail($this->email)) {
             $errores['email'] = 'Este correo no pertenece a ninguna cuenta.';
+        } elseif(!$this->usuarioConfirmado($this->email)){
+            $errores['confirmado'] = 'Acción necesaria: confirmar correo';
         }
 
         // Validación de la contraseña
