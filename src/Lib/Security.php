@@ -34,9 +34,10 @@ class Security
         return JWT::encode($token, $key, "HS256");
     }
 
-    final public static function descrifrarToken($token){
-        $decoded = JWT::decode($token, new Key(Security::claveSecreta(), 'HS256'));
+    final public static function descrifrarToken($token)
+    {
 
+        $decoded = JWT::decode($token, new Key(Security::claveSecreta(), 'HS256'));
         return $decoded;
     }
 

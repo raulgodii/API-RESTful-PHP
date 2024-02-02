@@ -172,7 +172,7 @@ class Usuario
         // Verificar si el token ha expirado
         $tiempoActual = time();
         if ($expiracion <= $tiempoActual) {
-            return "Error: El token ha expirado.";
+            return "Error: El token ha expirado, vuelva a registrarse.";
         }
 
         // Si todas las verificaciones pasan, marcar el usuario como confirmado
