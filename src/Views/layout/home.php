@@ -154,12 +154,14 @@
                                     </li>
                                 </ul>
 
-                                <a href="#" class="btn btn-info">
-                                    <i class="fas fa-play-circle me-2"></i>
+                                <a class="btn btn-info enviarPeticionBtn">
+                                    <i class="fas fa-play-circle me-2 enviarPeticionBtn"></i>
                                     Ejecutar</a>
+                                <br>
+                                <span id="error" style="color:red"></span>
 
                                 <div class="docs-code-block">
-                                    <pre class="shadow-lg rounded"><code class="json hljs">
+                                    <pre class="shadow-lg rounded"><code id="jsonRes" class="json hljs">
 [
     {
         "title": "apples",
@@ -201,7 +203,7 @@
                                     </li>
                                 </ul>
 
-                                <a href="#" class="btn btn-info">
+                                <a class="btn btn-info enviarPeticionBtn">
                                     <i class="fas fa-play-circle me-2"></i>
                                     Ejecutar</a>
 
@@ -429,11 +431,12 @@
             var xhr = new XMLHttpRequest();
             xhr.open('GET', 'http://localhost/API-RESTful-PHP/obtenerToken', true);
 
-            xhr.onload = function () {
+            xhr.onload = function() {
                 if (xhr.status === 200) {
                     // Actualizar el contenido del código con el token recibido
                     var tokenCode = document.getElementsByClassName('token-code')[indice];
                     tokenCode.textContent = xhr.responseText;
+                    token = xhr.responseText;
                 } else {
                     console.error('Error al obtener el token.');
                 }
@@ -442,10 +445,57 @@
             xhr.send();
         }
 
+        var token;
+
         // Obtener todos los elementos con la clase 'obtener-token-btn' y asignar la misma función de clic
         var botones = document.getElementsByClassName('obtener-token-btn');
         for (var i = 0; i < botones.length; i++) {
             botones[i].addEventListener('click', obtenerToken);
+        }
+    </script>
+
+    <script>
+        // Función común para manejar el evento clic de todos los botones
+        function enviarPeticionConToken() {
+            // Obtener el token asociado con el botón clicado
+            if (!token) {
+                error.innerHTML = 'Token requerido';
+            } else {
+                error.innerHTML = '';
+            }
+
+            // Crear objeto XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+
+            // Configurar la solicitud (método, URL, asíncrona)
+            xhr.open('GET', 'http://localhost/API-RESTful-PHP/competiciones', true);
+
+            // Establecer la cabecera de autorización con el token
+            //xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+            // Configurar la función de devolución de llamada cuando la solicitud se complete
+            xhr.onload = function() {
+                if (xhr.status === 202) {
+                    // Manejar la respuesta exitosa
+                    //var jsonResponse = JSON.parse(xhr.responseText);
+                    console.log(xhr.responseText);
+                    jsonRes.innerHTML = JSON.parse(xhr.responseText);
+                } else {
+                    // Manejar errores
+                    console.error('Error en la solicitud. Código de estado:', xhr.status);
+                }
+            };
+
+            // Enviar la solicitud
+            xhr.send();
+        }
+
+        // Obtener todos los elementos con la clase 'enviarPeticionBtn' y asignar la misma función de clic
+        var botones = document.getElementsByClassName('enviarPeticionBtn');
+        var error = document.getElementById("error")
+        var jsonRes = document.getElementById("jsonRes")
+        for (var i = 0; i < botones.length; i++) {
+            botones[i].addEventListener('click', enviarPeticionConToken);
         }
     </script>
 
