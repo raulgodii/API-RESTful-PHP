@@ -23,7 +23,8 @@ PowerHispania API is a platform dedicated to the world of powerlifting, designed
 ### Authentication
 
 - Obtain a token by clicking the "GET TOKEN" button for each operation.
-- ![image](https://github.com/raulgodii/API-RESTful-PHP/assets/102313699/631fcf85-960c-44ec-adf4-dacea3a58170)
+![image](https://github.com/raulgodii/API-RESTful-PHP/assets/102313699/11c172db-c8b1-45da-a62f-d614de1a77c0)
+
 
 
 ### Examples
