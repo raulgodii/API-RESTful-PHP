@@ -1,17 +1,18 @@
-<?php
+
+    <?php
+
     use Lib\ResponseHTTP;
+
     $ResponseHTTP = new ResponseHTTP;
 
     echo $ResponseHTTP->setHeaders();
 
-    if(count($body) == 0){
-        echo $ResponseHTTP->statusMessage(404, "Competicion no existente");
+    if (isset($error)) {
+        echo $ResponseHTTP->statusMessage(404, $error, []);
     } else {
-        echo $ResponseHTTP->statusMessage(202, "OK");
+        if (count($body) == 0) {
+            echo $ResponseHTTP->statusMessage(404, "Competicion no existente", $body);
+        } else {
+            echo $ResponseHTTP->statusMessage(202, "OK", $body);
+        }
     }
-
-    echo json_encode(
-        [
-            "body" => $body
-        ]
-    );

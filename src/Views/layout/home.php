@@ -188,27 +188,14 @@
                                     </li>
                                 </ul>
 
-                                <a class="btn btn-info enviarPeticionBtn">
+                                <a class="btn btn-info" id="mostrar_competicion">
                                     <i class="fas fa-play-circle me-2"></i>
                                     Ejecutar</a>
+                                <br>
+                                <span id="mostrar_competicion_error" style="color:red"></span>
 
                                 <div class="docs-code-block">
-                                    <pre class="shadow-lg rounded"><code class="json hljs">
-[
-    {
-        "title": "apples",
-        "count": [12000, 20000],
-        "description": {"text": "...", "sensitive": false}
-    },
-    {
-        "title": "oranges",
-        "count": [17500, null],
-        "description": {"text": "...", "sensitive": false}
-    }
-]
-
-
-</code></pre>
+                                    <pre class="shadow-lg rounded"><code id="mostrar_competicion_res" class="json hljs"></code></pre>
                                 </div>
 
                             <?php endif; ?>
@@ -440,7 +427,6 @@
     </script>
 
     <script>
-        // Función común para manejar el evento clic de todos los botones
         function mostrar_competiciones_func() {
             // Crear objeto XMLHttpRequest
             var xhr = new XMLHttpRequest();
@@ -478,13 +464,56 @@
                 document.getElementById("mostrar_competiciones_error").innerText = "";
                 xhr.send();
             }
-
         }
 
-        // Obtener todos los elementos con la clase 'enviarPeticionBtn' y asignar la misma función de clic
+        function mostrar_competicion_func() {
+            // Crear objeto XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+
+            // Configurar la solicitud (método, URL, asíncrona)
+            xhr.open('GET', 'http://localhost/API-RESTful-PHP/competicion/19', true);
+
+            xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+            // Configurar la función de devolución de llamada cuando la solicitud se complete
+            xhr.onload = function() {
+
+                // Manejar la respuesta exitosa
+
+                console.log(xhr.responseText);
+
+                // Decodificar caracteres de escape
+                var jsonObject = JSON.parse(xhr.responseText);
+
+                // Convertir el objeto JSON a una cadena con formato
+                var formattedJson = JSON.stringify(jsonObject, null, 2);
+
+                // Insertar la cadena en el elemento con id "jsonRes"
+                document.getElementById('mostrar_competicion_res').textContent = formattedJson;
+
+                // Resaltar la sintaxis del JSON
+                hljs.highlightBlock(document.getElementById('mostrar_competicion_res'));
+            };
+
+            // Establecer la cabecera de autorización con el token
+            if (!token) {
+                document.getElementById("mostrar_competicion_error").innerText = "Primero solicita el token";
+            } else {
+                // Enviar la solicitud
+                document.getElementById("mostrar_competicion_error").innerText = "";
+                xhr.send();
+            }
+        }
+
         var botones = document.getElementsByClassName('enviarPeticionBtn');
+
         var mostrar_competiciones = document.getElementById("mostrar_competiciones");
         mostrar_competiciones.addEventListener('click', mostrar_competiciones_func);
+
+        var mostrar_competicion = document.getElementById("mostrar_competicion");
+        mostrar_competicion.addEventListener('click', mostrar_competicion_func);
+
+        
     </script>
 
     <!-- Javascript -->
