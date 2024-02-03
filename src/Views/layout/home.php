@@ -28,7 +28,7 @@
 </head>
 
 <body class="docs-page">
-<header class="header fixed-top">
+    <header class="header fixed-top">
         <div class="branding docs-branding">
             <div class="container-fluid position-relative py-2">
                 <div class="docs-logo-wrapper">
@@ -41,7 +41,7 @@
                     <?php else : ?>
                         <a href="<?= BASE_URL ?>/cerrarSesion" class="btn btn-primary d-none d-lg-flex m-2">Cerrar Sesión</a>
                     <?php endif; ?>
-                    
+
                 </div><!--//docs-top-utilities-->
             </div><!--//container-->
         </div><!--//branding-->
@@ -140,23 +140,26 @@
 
                             <p>Obtén información detallada sobre todos los eventos pasados y futuros.
                             </p>
+                            <?php
+                            // Verificar si no hay sesión activa o si el inicio de sesión ha fallado
+                            if (isset($_SESSION['login']) && $_SESSION['login'] != 'failed') :
+                            ?>
+                                <a class="btn btn-secondary obtener-token-btn">GET TOKEN</a>
+                                <br>
 
-                            <a href="#" class="btn btn-secondary">GET TOKEN</a>
-                            <br>
+                                <ul>
+                                    <li>
+                                        <strong class="me-1">TOKEN:</strong>
+                                        <code class="token-code"></code>
+                                    </li>
+                                </ul>
 
-                            <ul>
-                                <li>
-                                    <strong class="me-1">TOKEN:</strong>
-                                    <code>SDFSDFDFDF</code>
-                                </li>
-                            </ul>
+                                <a href="#" class="btn btn-info">
+                                    <i class="fas fa-play-circle me-2"></i>
+                                    Ejecutar</a>
 
-                            <a href="#" class="btn btn-info">
-                                <i class="fas fa-play-circle me-2"></i>
-                                Ejecutar</a>
-
-                            <div class="docs-code-block">
-                                <pre class="shadow-lg rounded"><code class="json hljs">
+                                <div class="docs-code-block">
+                                    <pre class="shadow-lg rounded"><code class="json hljs">
 [
     {
         "title": "apples",
@@ -172,9 +175,9 @@
 
 
 </code></pre>
-                            </div>
+                                </div>
 
-
+                            <?php endif; ?>
 
                         </section>
 
@@ -184,23 +187,26 @@
 
                             <p>Obtén información detallada sobre una competicion en concreto.
                             </p>
+                            <?php
+                            // Verificar si no hay sesión activa o si el inicio de sesión ha fallado
+                            if (isset($_SESSION['login']) && $_SESSION['login'] != 'failed') :
+                            ?>
+                                <a class="btn btn-secondary obtener-token-btn">GET TOKEN</a>
+                                <br>
 
-                            <a href="#" class="btn btn-secondary">GET TOKEN</a>
-                            <br>
+                                <ul>
+                                    <li>
+                                        <strong class="me-1">TOKEN:</strong>
+                                        <code class="token-code"></code>
+                                    </li>
+                                </ul>
 
-                            <ul>
-                                <li>
-                                    <strong class="me-1">TOKEN:</strong>
-                                    <code>SDFSDFDFDF</code>
-                                </li>
-                            </ul>
+                                <a href="#" class="btn btn-info">
+                                    <i class="fas fa-play-circle me-2"></i>
+                                    Ejecutar</a>
 
-                            <a href="#" class="btn btn-info">
-                                <i class="fas fa-play-circle me-2"></i>
-                                Ejecutar</a>
-
-                            <div class="docs-code-block">
-                                <pre class="shadow-lg rounded"><code class="json hljs">
+                                <div class="docs-code-block">
+                                    <pre class="shadow-lg rounded"><code class="json hljs">
 [
     {
         "title": "apples",
@@ -216,9 +222,9 @@
 
 
 </code></pre>
-                            </div>
+                                </div>
 
-
+                            <?php endif; ?>
 
                         </section>
 
@@ -228,23 +234,26 @@
 
                             <p>Creación de una competición.
                             </p>
+                            <?php
+                            // Verificar si no hay sesión activa o si el inicio de sesión ha fallado
+                            if (isset($_SESSION['login']) && $_SESSION['login'] != 'failed') :
+                            ?>
+                                <a class="btn btn-secondary obtener-token-btn">GET TOKEN</a>
+                                <br>
 
-                            <a href="#" class="btn btn-secondary">GET TOKEN</a>
-                            <br>
+                                <ul>
+                                    <li>
+                                        <strong class="me-1">TOKEN:</strong>
+                                        <code class="token-code"></code>
+                                    </li>
+                                </ul>
 
-                            <ul>
-                                <li>
-                                    <strong class="me-1">TOKEN:</strong>
-                                    <code>SDFSDFDFDF</code>
-                                </li>
-                            </ul>
+                                <a href="#" class="btn btn-info">
+                                    <i class="fas fa-play-circle me-2"></i>
+                                    Ejecutar</a>
 
-                            <a href="#" class="btn btn-info">
-                                <i class="fas fa-play-circle me-2"></i>
-                                Ejecutar</a>
-
-                            <div class="docs-code-block">
-                                <pre class="shadow-lg rounded"><code class="json hljs">
+                                <div class="docs-code-block">
+                                    <pre class="shadow-lg rounded"><code class="json hljs">
 [
     {
         "title": "apples",
@@ -260,9 +269,9 @@
 
 
 </code></pre>
-                            </div>
+                                </div>
 
-
+                            <?php endif; ?>
 
                         </section>
 
@@ -272,23 +281,26 @@
 
                             <p>Eliminación de una competición.
                             </p>
+                            <?php
+                            // Verificar si no hay sesión activa o si el inicio de sesión ha fallado
+                            if (isset($_SESSION['login']) && $_SESSION['login'] != 'failed') :
+                            ?>
+                                <a class="btn btn-secondary obtener-token-btn">GET TOKEN</a>
+                                <br>
 
-                            <a href="#" class="btn btn-secondary">GET TOKEN</a>
-                            <br>
+                                <ul>
+                                    <li>
+                                        <strong class="me-1">TOKEN:</strong>
+                                        <code class="token-code"></code>
+                                    </li>
+                                </ul>
 
-                            <ul>
-                                <li>
-                                    <strong class="me-1">TOKEN:</strong>
-                                    <code>SDFSDFDFDF</code>
-                                </li>
-                            </ul>
+                                <a href="#" class="btn btn-info">
+                                    <i class="fas fa-play-circle me-2"></i>
+                                    Ejecutar</a>
 
-                            <a href="#" class="btn btn-info">
-                                <i class="fas fa-play-circle me-2"></i>
-                                Ejecutar</a>
-
-                            <div class="docs-code-block">
-                                <pre class="shadow-lg rounded"><code class="json hljs">
+                                <div class="docs-code-block">
+                                    <pre class="shadow-lg rounded"><code class="json hljs">
 [
     {
         "title": "apples",
@@ -304,9 +316,9 @@
 
 
 </code></pre>
-                            </div>
+                                </div>
 
-
+                            <?php endif; ?>
 
                         </section>
 
@@ -316,23 +328,26 @@
 
                             <p>Modficación de una competición.
                             </p>
+                            <?php
+                            // Verificar si no hay sesión activa o si el inicio de sesión ha fallado
+                            if (isset($_SESSION['login']) && $_SESSION['login'] != 'failed') :
+                            ?>
+                                <a class="btn btn-secondary obtener-token-btn">GET TOKEN</a>
+                                <br>
 
-                            <a href="#" class="btn btn-secondary">GET TOKEN</a>
-                            <br>
+                                <ul>
+                                    <li>
+                                        <strong class="me-1">TOKEN:</strong>
+                                        <code class="token-code"></code>
+                                    </li>
+                                </ul>
 
-                            <ul>
-                                <li>
-                                    <strong class="me-1">TOKEN:</strong>
-                                    <code>SDFSDFDFDF</code>
-                                </li>
-                            </ul>
+                                <a href="#" class="btn btn-info">
+                                    <i class="fas fa-play-circle me-2"></i>
+                                    Ejecutar</a>
 
-                            <a href="#" class="btn btn-info">
-                                <i class="fas fa-play-circle me-2"></i>
-                                Ejecutar</a>
-
-                            <div class="docs-code-block">
-                                <pre class="shadow-lg rounded"><code class="json hljs">
+                                <div class="docs-code-block">
+                                    <pre class="shadow-lg rounded"><code class="json hljs">
 [
     {
         "title": "apples",
@@ -348,61 +363,91 @@
 
 
 </code></pre>
-                            </div>
+                                </div>
 
-
+                            <?php endif; ?>
 
                         </section>
 
-                        
 
-                <footer class="footer">
-                    <div class="container text-center py-5">
-                        <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-                        <small class="copyright">Designed with
-                            <span class="sr-only">love</span>
-                            <i class="fas fa-heart" style="color: #fb866a;"></i>
-                            by
-                            <a class="theme-link" href="https://github.com/raulgodii" target="_blank">Raúl González</a>
-                            for developers</small>
-                        <ul class="social-list list-unstyled pt-4 mb-0">
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-github fa-fw"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-twitter fa-fw"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-slack fa-fw"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-product-hunt fa-fw"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-facebook-f fa-fw"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#">
-                                    <i class="fab fa-instagram fa-fw"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <!--//social-list-->
-                    </div>
-                </footer>
+
+                        <footer class="footer">
+                            <div class="container text-center py-5">
+                                <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+                                <small class="copyright">Designed with
+                                    <span class="sr-only">love</span>
+                                    <i class="fas fa-heart" style="color: #fb866a;"></i>
+                                    by
+                                    <a class="theme-link" href="https://github.com/raulgodii" target="_blank">Raúl González</a>
+                                    for developers</small>
+                                <ul class="social-list list-unstyled pt-4 mb-0">
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fab fa-github fa-fw"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fab fa-twitter fa-fw"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fab fa-slack fa-fw"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fab fa-product-hunt fa-fw"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fab fa-facebook-f fa-fw"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">
+                                            <i class="fab fa-instagram fa-fw"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!--//social-list-->
+                            </div>
+                        </footer>
             </div>
         </div>
     </div>
+
+    <script>
+        // Función común para manejar el evento clic de todos los botones
+        function obtenerToken() {
+            // Obtener el índice del botón que fue clicado
+            var indice = Array.from(document.getElementsByClassName('obtener-token-btn')).indexOf(this);
+
+            // Realizar una solicitud AJAX para obtener el token desde el servidor PHP
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost/API-RESTful-PHP/obtenerToken', true);
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Actualizar el contenido del código con el token recibido
+                    var tokenCode = document.getElementsByClassName('token-code')[indice];
+                    tokenCode.textContent = xhr.responseText;
+                } else {
+                    console.error('Error al obtener el token.');
+                }
+            };
+
+            xhr.send();
+        }
+
+        // Obtener todos los elementos con la clase 'obtener-token-btn' y asignar la misma función de clic
+        var botones = document.getElementsByClassName('obtener-token-btn');
+        for (var i = 0; i < botones.length; i++) {
+            botones[i].addEventListener('click', obtenerToken);
+        }
+    </script>
 
     <!-- Javascript -->
     <script src="<?= BASE_URL ?>/plugins/popper.min.js"></script>

@@ -62,6 +62,10 @@ class Routes{
         Router::add('GET', '/confirmarCorreo/{token}', function($token){
             return (new AuthController())->confirmarCorreo($token);
         });
+
+        Router::add('GET', '/obtenerToken/', function(){
+            return (new AuthController())->obtenerToken();
+        });
         
         Router::dispatch();
 

@@ -37,4 +37,23 @@ class AuthController
 
         $this->pages->render('usuario/confirmarCorreo', ['errores' => $errores]);
     }
+
+    public function obtenerToken()
+    {
+        if (isset($_SESSION['login']) && $_SESSION['login'] != 'failed'){
+            $token = Security::crearToken(Security::claveSecreta(), [$_SESSION['login']->nombre, $_SESSION['login']->correo]);
+
+            $usuario = Usuario::fromArray([]);
+            $guardado = $usuario->guardaToken($token);
+            
+            if($guardado){
+                return $token;
+            } else {
+                return 'Error al obtener token';
+            }
+        } else {
+            return 'Sin inicio de sesion';
+        }
+        
+    }
 }

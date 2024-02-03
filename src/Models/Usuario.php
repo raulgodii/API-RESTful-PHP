@@ -556,4 +556,27 @@ class Usuario
         // Devuelve el array de errores si los hay, o true si no hay errores
         return empty($errores) ? true : $errores;
     }
+
+    public function guardaToken($token){
+        try {
+            $fechaExpiracion = strtotime("now") + 1800;
+
+            // Actualizar el campo 'confirmado' a true para el usuario con el correo especificado
+            $update = $this->db->prepare("UPDATE usuarios SET confirmado = true, fecha_expiracion_token = :fechaExpiracion, token = :token WHERE correo = :correo");
+            $update->bindValue(':correo', $_SESSION['login']->correo, PDO::PARAM_STR);
+            $update->bindValue(':fechaExpiracion', $fechaExpiracion, PDO::PARAM_STR);
+            $update->bindValue(':token', $token, PDO::PARAM_STR);
+            
+
+            $update->execute();
+
+            // Verificar si la actualización fue exitosa
+            $result = true;
+        } catch (PDOException $err) {
+            // Manejar el error si ocurre una excepción
+            $result = false;
+        }
+
+        return $result;
+    }
 }
