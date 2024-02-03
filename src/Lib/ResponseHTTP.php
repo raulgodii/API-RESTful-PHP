@@ -48,13 +48,14 @@ class ResponseHTTP
         return ($statusMessage[$code]) ?: $statusMessage[500];
     }
 
-    final public static function statusMessage(int $status, string $res)
+    final public static function statusMessage(int $status, string $res, $body)
     {
         http_response_code($status);
 
         $mensaje = [
             "status" => self::getStatusMessage($status),
-            "message" => $res
+            "message" => $res,
+            "body" => $body
         ];
 
         return json_encode($mensaje);

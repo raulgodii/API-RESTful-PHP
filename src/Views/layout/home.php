@@ -478,8 +478,8 @@
                 if (xhr.status === 202) {
                     // Manejar la respuesta exitosa
                     //var jsonResponse = JSON.parse(xhr.responseText);
-                    console.log(xhr.responseText);
-                    jsonRes.innerHTML = JSON.parse(xhr.responseText);
+                    console.log(JSON.parse(xhr.responseText));
+                    jsonRes.innerText = xhr.responseText;
                 } else {
                     // Manejar errores
                     console.error('Error en la solicitud. Código de estado:', xhr.status);
