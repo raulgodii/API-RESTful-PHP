@@ -6,8 +6,12 @@ $ResponseHTTP = new ResponseHTTP;
 
 echo $ResponseHTTP->setHeaders();
 
-if ($rowCount == 0) {
-    echo $ResponseHTTP->statusMessage(404, "Competicion no existente");
+if (isset($error)) {
+    echo $ResponseHTTP->statusMessage(404, $error, []);
 } else {
-    echo $ResponseHTTP->statusMessage(202, "Competicion borrada con exito");
+    if (count($body) == 0) {
+        echo $ResponseHTTP->statusMessage(404, "Competicion no existente", $body);
+    } else {
+        echo $ResponseHTTP->statusMessage(202, "Competicion borrada con exito", $body);
+    }
 }

@@ -6,8 +6,12 @@ $ResponseHTTP = new ResponseHTTP;
 
 echo $ResponseHTTP->setHeaders();
 
-if ($rowCount == 0) {
-    echo $ResponseHTTP->statusMessage(404, "Competicion no creada");
+if (isset($error)) {
+    echo $ResponseHTTP->statusMessage(404, $error, []);
 } else {
-    echo $ResponseHTTP->statusMessage(202, "Competicion creada con exito");
+    if (count($body) == 0) {
+        echo $ResponseHTTP->statusMessage(404, "Competicion no creada", $body);
+    } else {
+        echo $ResponseHTTP->statusMessage(202, "Competicion creada con exito", $body);
+    }
 }
