@@ -188,6 +188,8 @@
                                     </li>
                                 </ul>
 
+                                <input type="text" id="mostrar_competicion_input" placeholder="Introduce el ID"><br><br>
+
                                 <a class="btn btn-info" id="mostrar_competicion">
                                     <i class="fas fa-play-circle me-2"></i>
                                     Ejecutar</a>
@@ -203,7 +205,7 @@
                         </section>
 
                         <section class="docs-section" id="creaCompeticion">
-                            <h2 class="section-heading"><a class="btn btn-info">POST</a> Competicion </h2>
+                            <h2 class="section-heading"><a class="btn btn-info">POST</a> Crear competicion </h2>
                             <h2><code>/competicion</code></h2>
 
                             <p>Creación de una competición.
@@ -222,27 +224,36 @@
                                     </li>
                                 </ul>
 
-                                <a href="#" class="btn btn-info">
+                                <form id="formularioCompeticion">
+                                    <label for="crear_competicion_nombre">Nombre de la Competición:</label>
+                                    <input type="text" id="crear_competicion_nombre" name="nombre" value="" placeholder="Nombre de la Competición" required><br>
+
+                                    <label for="crear_competicion_fecha">Fecha:</label>
+                                    <input type="date" id="crear_competicion_fecha" name="fecha" value="" placeholder="Fecha de la Competición" required><br>
+
+                                    <label for="crear_competicion_ubicacion">Ubicación de la Competición:</label>
+                                    <input type="text" id="crear_competicion_ubicacion" name="ubicacion" value="" placeholder="Ubicación de la Competición" required><br>
+
+                                    <label for="crear_competicion_organizador">Organizador de la Competición:</label>
+                                    <input type="text" id="crear_competicion_organizador" name="organizador" value="" placeholder="Organizador de la Competición" required><br>
+
+                                    <label for="crear_competicion_nivel">Nivel de la Competición:</label>
+                                    <input type="text" id="crear_competicion_nivel" name="nivel" value="" placeholder="Nivel de la Competición" required><br>
+
+                                    <label for="crear_competicion_division">División de la Competición:</label>
+                                    <input type="text" id="crear_competicion_division" name="division" value="" placeholder="División de la Competición" required><br>
+                                </form>
+
+
+                                <a class="btn btn-info" id="crear_competicion">
                                     <i class="fas fa-play-circle me-2"></i>
                                     Ejecutar</a>
+                                <br>
+
+                                <span id="crear_competicion_error" style="color:red"></span>
 
                                 <div class="docs-code-block">
-                                    <pre class="shadow-lg rounded"><code class="json hljs">
-[
-    {
-        "title": "apples",
-        "count": [12000, 20000],
-        "description": {"text": "...", "sensitive": false}
-    },
-    {
-        "title": "oranges",
-        "count": [17500, null],
-        "description": {"text": "...", "sensitive": false}
-    }
-]
-
-
-</code></pre>
+                                    <pre class="shadow-lg rounded"><code id="crear_competicion_res" class="json hljs"></code></pre>
                                 </div>
 
                             <?php endif; ?>
@@ -250,7 +261,7 @@
                         </section>
 
                         <section class="docs-section" id="eliminaCompeticion">
-                            <h2 class="section-heading"><a class="btn btn-danger">DELETE</a> Competicion </h2>
+                            <h2 class="section-heading"><a class="btn btn-danger">DELETE</a> Eliminar competicion </h2>
                             <h2><code>/competicion/:id</code></h2>
 
                             <p>Eliminación de una competición.
@@ -269,27 +280,16 @@
                                     </li>
                                 </ul>
 
-                                <a href="#" class="btn btn-info">
+                                <input type="text" id="eliminar_competicion_input" placeholder="Introduce el ID"><br><br>
+
+                                <a class="btn btn-info" id="eliminar_competicion">
                                     <i class="fas fa-play-circle me-2"></i>
                                     Ejecutar</a>
+                                <br>
+                                <span id="eliminar_competicion_error" style="color:red"></span>
 
                                 <div class="docs-code-block">
-                                    <pre class="shadow-lg rounded"><code class="json hljs">
-[
-    {
-        "title": "apples",
-        "count": [12000, 20000],
-        "description": {"text": "...", "sensitive": false}
-    },
-    {
-        "title": "oranges",
-        "count": [17500, null],
-        "description": {"text": "...", "sensitive": false}
-    }
-]
-
-
-</code></pre>
+                                    <pre class="shadow-lg rounded"><code id="eliminar_competicion_res" class="json hljs"></code></pre>
                                 </div>
 
                             <?php endif; ?>
@@ -297,10 +297,10 @@
                         </section>
 
                         <section class="docs-section" id="modificaCompeticion">
-                            <h2 class="section-heading"><a class="btn btn-warning">PUT</a> Competicion </h2>
+                            <h2 class="section-heading"><a class="btn btn-warning">PUT</a> Modificar competicion </h2>
                             <h2><code>/competicion/:id</code></h2>
 
-                            <p>Modficación de una competición.
+                            <p>Modificación de una competición.
                             </p>
                             <?php
                             // Verificar si no hay sesión activa o si el inicio de sesión ha fallado
@@ -316,27 +316,36 @@
                                     </li>
                                 </ul>
 
-                                <a href="#" class="btn btn-info">
+                                <input type="text" id="modificar_competicion_input" placeholder="Introduce el ID"><br><br>
+
+                                <form id="formularioCompeticion">
+                                    <label for="modificar_competicion_nombre">Nombre de la Competición:</label>
+                                    <input type="text" id="modificar_competicion_nombre" name="nombre" value="" placeholder="Nombre de la Competición" required><br>
+
+                                    <label for="modificar_competicion_fecha">Fecha:</label>
+                                    <input type="date" id="modificar_competicion_fecha" name="fecha" value="" placeholder="Fecha de la Competición" required><br>
+
+                                    <label for="modificar_competicion_ubicacion">Ubicación de la Competición:</label>
+                                    <input type="text" id="modificar_competicion_ubicacion" name="ubicacion" value="" placeholder="Ubicación de la Competición" required><br>
+
+                                    <label for="modificar_competicion_organizador">Organizador de la Competición:</label>
+                                    <input type="text" id="modificar_competicion_organizador" name="organizador" value="" placeholder="Organizador de la Competición" required><br>
+
+                                    <label for="modificar_competicion_nivel">Nivel de la Competición:</label>
+                                    <input type="text" id="modificar_competicion_nivel" name="nivel" value="" placeholder="Nivel de la Competición" required><br>
+
+                                    <label for="modificar_competicion_division">División de la Competición:</label>
+                                    <input type="text" id="modificar_competicion_division" name="division" value="" placeholder="División de la Competición" required><br>
+                                </form>
+
+                                <a class="btn btn-info" id="modificar_competicion">
                                     <i class="fas fa-play-circle me-2"></i>
                                     Ejecutar</a>
+                                <br>
+                                <span id="modificar_competicion_error" style="color:red"></span>
 
                                 <div class="docs-code-block">
-                                    <pre class="shadow-lg rounded"><code class="json hljs">
-[
-    {
-        "title": "apples",
-        "count": [12000, 20000],
-        "description": {"text": "...", "sensitive": false}
-    },
-    {
-        "title": "oranges",
-        "count": [17500, null],
-        "description": {"text": "...", "sensitive": false}
-    }
-]
-
-
-</code></pre>
+                                    <pre class="shadow-lg rounded"><code id="modificar_competicion_res" class="json hljs"></code></pre>
                                 </div>
 
                             <?php endif; ?>
@@ -470,8 +479,10 @@
             // Crear objeto XMLHttpRequest
             var xhr = new XMLHttpRequest();
 
+            id = document.getElementById("mostrar_competicion_input").value;
+
             // Configurar la solicitud (método, URL, asíncrona)
-            xhr.open('GET', 'http://localhost/API-RESTful-PHP/competicion/19', true);
+            xhr.open('GET', 'http://localhost/API-RESTful-PHP/competicion/' + id, true);
 
             xhr.setRequestHeader('Authorization', 'Bearer ' + token);
 
@@ -505,6 +516,161 @@
             }
         }
 
+        function crear_competicion_func() {
+            // Crear objeto XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+
+            // Configurar la solicitud (método, URL, asíncrona)
+            xhr.open('POST', 'http://localhost/API-RESTful-PHP/competicion', true);
+
+            xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+            // Configurar la función de devolución de llamada cuando la solicitud se complete
+            xhr.onload = function() {
+
+                // Manejar la respuesta exitosa
+
+                console.log(xhr.responseText);
+
+                // Decodificar caracteres de escape
+                var jsonObject = JSON.parse(xhr.responseText);
+
+                // Convertir el objeto JSON a una cadena con formato
+                var formattedJson = JSON.stringify(jsonObject, null, 2);
+
+                // Insertar la cadena en el elemento con id "jsonRes"
+                document.getElementById('crear_competicion_res').textContent = formattedJson;
+
+                // Resaltar la sintaxis del JSON
+                hljs.highlightBlock(document.getElementById('crear_competicion_res'));
+            };
+
+            // Obtener valores de los campos del formulario
+            var nombre = document.getElementById('crear_competicion_nombre').value;
+            var fecha = document.getElementById('crear_competicion_fecha').value;
+            var ubicacion = document.getElementById('crear_competicion_ubicacion').value;
+            var organizador = document.getElementById('crear_competicion_organizador').value;
+            var nivel = document.getElementById('crear_competicion_nivel').value;
+            var division = document.getElementById('crear_competicion_division').value;
+
+            var data = {
+                'nombre': nombre,
+                'fecha': fecha,
+                'ubicacion': ubicacion,
+                'organizador': organizador,
+                'nivel': nivel,
+                'division': division
+            };
+
+            // Establecer la cabecera de autorización con el token
+            if (!token) {
+                document.getElementById("crear_competicion_error").innerText = "Primero solicita el token";
+            } else {
+                // Enviar la solicitud
+                document.getElementById("crear_competicion_error").innerText = "";
+                xhr.send(JSON.stringify(data));
+            }
+        }
+
+        function eliminar_competicion_func() {
+            // Crear objeto XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+
+            id = document.getElementById("eliminar_competicion_input").value;
+
+            // Configurar la solicitud (método, URL, asíncrona)
+            xhr.open('DELETE', 'http://localhost/API-RESTful-PHP/competicion/' + id, true);
+
+            xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+            // Configurar la función de devolución de llamada cuando la solicitud se complete
+            xhr.onload = function() {
+
+                // Manejar la respuesta exitosa
+
+                console.log(xhr.responseText);
+
+                // Decodificar caracteres de escape
+                var jsonObject = JSON.parse(xhr.responseText);
+
+                // Convertir el objeto JSON a una cadena con formato
+                var formattedJson = JSON.stringify(jsonObject, null, 2);
+
+                // Insertar la cadena en el elemento con id "jsonRes"
+                document.getElementById('eliminar_competicion_res').textContent = formattedJson;
+
+                // Resaltar la sintaxis del JSON
+                hljs.highlightBlock(document.getElementById('eliminar_competicion_res'));
+            };
+
+            // Establecer la cabecera de autorización con el token
+            if (!token) {
+                document.getElementById("eliminar_competicion_error").innerText = "Primero solicita el token";
+            } else {
+                // Enviar la solicitud
+                document.getElementById("eliminar_competicion_error").innerText = "";
+                xhr.send();
+            }
+        }
+
+        function modificar_competicion_func() {
+            // Crear objeto XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+
+            id = document.getElementById("modificar_competicion_input").value;
+
+            // Configurar la solicitud (método, URL, asíncrona)
+            xhr.open('PUT', 'http://localhost/API-RESTful-PHP/competicion/' + id, true);
+
+            xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+            // Configurar la función de devolución de llamada cuando la solicitud se complete
+            xhr.onload = function() {
+
+                // Manejar la respuesta exitosa
+
+                console.log(xhr.responseText);
+
+                // Decodificar caracteres de escape
+                var jsonObject = JSON.parse(xhr.responseText);
+
+                // Convertir el objeto JSON a una cadena con formato
+                var formattedJson = JSON.stringify(jsonObject, null, 2);
+
+                // Insertar la cadena en el elemento con id "jsonRes"
+                document.getElementById('modificar_competicion_res').textContent = formattedJson;
+
+                // Resaltar la sintaxis del JSON
+                hljs.highlightBlock(document.getElementById('modificar_competicion_res'));
+            };
+            
+            // Obtener valores de los campos del formulario
+            var nombre = document.getElementById('modificar_competicion_nombre').value;
+            var fecha = document.getElementById('modificar_competicion_fecha').value;
+            var ubicacion = document.getElementById('modificar_competicion_ubicacion').value;
+            var organizador = document.getElementById('modificar_competicion_organizador').value;
+            var nivel = document.getElementById('modificar_competicion_nivel').value;
+            var division = document.getElementById('modificar_competicion_division').value;
+
+            var data = {
+                'nombre': nombre,
+                'fecha': fecha,
+                'ubicacion': ubicacion,
+                'organizador': organizador,
+                'nivel': nivel,
+                'division': division
+            };
+
+            // Establecer la cabecera de autorización con el token
+            if (!token) {
+                document.getElementById("modificar_competicion_error").innerText = "Primero solicita el token";
+            } else {
+                // Enviar la solicitud
+                document.getElementById("modificar_competicion_error").innerText = "";
+                xhr.send(JSON.stringify(data));
+            }
+        }
+
         var botones = document.getElementsByClassName('enviarPeticionBtn');
 
         var mostrar_competiciones = document.getElementById("mostrar_competiciones");
@@ -513,7 +679,14 @@
         var mostrar_competicion = document.getElementById("mostrar_competicion");
         mostrar_competicion.addEventListener('click', mostrar_competicion_func);
 
-        
+        var crear_competicion = document.getElementById("crear_competicion");
+        crear_competicion.addEventListener('click', crear_competicion_func);
+
+        var eliminar_competicion = document.getElementById("eliminar_competicion");
+        eliminar_competicion.addEventListener('click', eliminar_competicion_func);
+
+        var modificar_competicion = document.getElementById("modificar_competicion");
+        modificar_competicion.addEventListener('click', modificar_competicion_func);
     </script>
 
     <!-- Javascript -->
