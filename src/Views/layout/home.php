@@ -154,29 +154,14 @@
                                     </li>
                                 </ul>
 
-                                <a class="btn btn-info enviarPeticionBtn">
-                                    <i class="fas fa-play-circle me-2 enviarPeticionBtn"></i>
+                                <a class="btn btn-info" id="mostrar_competiciones">
+                                    <i class="fas fa-play-circle me-2"></i>
                                     Ejecutar</a>
                                 <br>
                                 <span id="error" style="color:red"></span>
 
                                 <div class="docs-code-block">
-                                    <pre class="shadow-lg rounded"><code id="jsonRes" class="json hljs">
-[
-    {
-        "title": "apples",
-        "count": [12000, 20000],
-        "description": {"text": "...", "sensitive": false}
-    },
-    {
-        "title": "oranges",
-        "count": [17500, null],
-        "description": {"text": "...", "sensitive": false}
-    }
-]
-
-
-</code></pre>
+                                    <pre class="shadow-lg rounded"><code id="mostrar_competiciones_res" class="json hljs"></code></pre>
                                 </div>
 
                             <?php endif; ?>
@@ -456,14 +441,7 @@
 
     <script>
         // Función común para manejar el evento clic de todos los botones
-        function enviarPeticionConToken() {
-            // Obtener el token asociado con el botón clicado
-            if (!token) {
-                error.innerHTML = 'Token requerido';
-            } else {
-                error.innerHTML = '';
-            }
-
+        function mostrar_competiciones_func() {
             // Crear objeto XMLHttpRequest
             var xhr = new XMLHttpRequest();
 
@@ -477,9 +455,20 @@
             xhr.onload = function() {
                 if (xhr.status === 202) {
                     // Manejar la respuesta exitosa
-                    //var jsonResponse = JSON.parse(xhr.responseText);
+
                     console.log(JSON.parse(xhr.responseText));
-                    jsonRes.innerText = xhr.responseText;
+
+                    // Decodificar caracteres de escape
+                    var jsonObject = JSON.parse(xhr.responseText);
+
+                    // Convertir el objeto JSON a una cadena con formato
+                    var formattedJson = JSON.stringify(jsonObject, null, 2);
+
+                    // Insertar la cadena en el elemento con id "jsonRes"
+                    document.getElementById('mostrar_competiciones_res').textContent = formattedJson;
+
+                    // Resaltar la sintaxis del JSON
+                    hljs.highlightBlock(document.getElementById('mostrar_competiciones_res'));
                 } else {
                     // Manejar errores
                     console.error('Error en la solicitud. Código de estado:', xhr.status);
@@ -492,11 +481,8 @@
 
         // Obtener todos los elementos con la clase 'enviarPeticionBtn' y asignar la misma función de clic
         var botones = document.getElementsByClassName('enviarPeticionBtn');
-        var error = document.getElementById("error")
-        var jsonRes = document.getElementById("jsonRes")
-        for (var i = 0; i < botones.length; i++) {
-            botones[i].addEventListener('click', enviarPeticionConToken);
-        }
+        var mostrar_competiciones = document.getElementById("mostrar_competiciones");
+        mostrar_competiciones.addEventListener('click', mostrar_competiciones_func);
     </script>
 
     <!-- Javascript -->
