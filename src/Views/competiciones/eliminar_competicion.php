@@ -1,17 +1,15 @@
 <?php
+    use Lib\ResponseHTTP;
+    $ResponseHTTP = new ResponseHTTP;
 
-use Lib\ResponseHTTP;
+    echo $ResponseHTTP->setHeaders();
 
-$ResponseHTTP = new ResponseHTTP;
-
-echo $ResponseHTTP->setHeaders();
-
-if (isset($error)) {
-    echo $ResponseHTTP->statusMessage(404, $error, []);
-} else {
-    if (count($body) == 0) {
-        echo $ResponseHTTP->statusMessage(404, "Competicion no existente", $body);
+    if(isset($error)){
+        echo $ResponseHTTP->statusMessage(404, $error, []);
     } else {
-        echo $ResponseHTTP->statusMessage(202, "Competicion borrada con exito", $body);
+        if($rowCount == 0){
+            echo $ResponseHTTP->statusMessage(404, "Competicion no existente", []);
+        } else {
+            echo $ResponseHTTP->statusMessage(202, "Competicion borrada con exito", []);
+        }
     }
-}
