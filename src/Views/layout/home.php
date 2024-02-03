@@ -158,7 +158,7 @@
                                     <i class="fas fa-play-circle me-2"></i>
                                     Ejecutar</a>
                                 <br>
-                                <span id="error" style="color:red"></span>
+                                <span id="mostrar_competiciones_error" style="color:red"></span>
 
                                 <div class="docs-code-block">
                                     <pre class="shadow-lg rounded"><code id="mostrar_competiciones_res" class="json hljs"></code></pre>
@@ -448,35 +448,37 @@
             // Configurar la solicitud (método, URL, asíncrona)
             xhr.open('GET', 'http://localhost/API-RESTful-PHP/competiciones', true);
 
-            // Establecer la cabecera de autorización con el token
-            //xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+            xhr.setRequestHeader('Authorization', 'Bearer ' + token);
 
             // Configurar la función de devolución de llamada cuando la solicitud se complete
             xhr.onload = function() {
-                if (xhr.status === 202) {
-                    // Manejar la respuesta exitosa
 
-                    console.log(JSON.parse(xhr.responseText));
+                // Manejar la respuesta exitosa
 
-                    // Decodificar caracteres de escape
-                    var jsonObject = JSON.parse(xhr.responseText);
+                console.log(xhr.responseText);
 
-                    // Convertir el objeto JSON a una cadena con formato
-                    var formattedJson = JSON.stringify(jsonObject, null, 2);
+                // Decodificar caracteres de escape
+                var jsonObject = JSON.parse(xhr.responseText);
 
-                    // Insertar la cadena en el elemento con id "jsonRes"
-                    document.getElementById('mostrar_competiciones_res').textContent = formattedJson;
+                // Convertir el objeto JSON a una cadena con formato
+                var formattedJson = JSON.stringify(jsonObject, null, 2);
 
-                    // Resaltar la sintaxis del JSON
-                    hljs.highlightBlock(document.getElementById('mostrar_competiciones_res'));
-                } else {
-                    // Manejar errores
-                    console.error('Error en la solicitud. Código de estado:', xhr.status);
-                }
+                // Insertar la cadena en el elemento con id "jsonRes"
+                document.getElementById('mostrar_competiciones_res').textContent = formattedJson;
+
+                // Resaltar la sintaxis del JSON
+                hljs.highlightBlock(document.getElementById('mostrar_competiciones_res'));
             };
 
-            // Enviar la solicitud
-            xhr.send();
+            // Establecer la cabecera de autorización con el token
+            if (!token) {
+                document.getElementById("mostrar_competiciones_error").innerText = "Primero solicita el token";
+            } else {
+                // Enviar la solicitud
+                document.getElementById("mostrar_competiciones_error").innerText = "";
+                xhr.send();
+            }
+
         }
 
         // Obtener todos los elementos con la clase 'enviarPeticionBtn' y asignar la misma función de clic

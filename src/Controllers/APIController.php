@@ -3,22 +3,56 @@
 namespace Controllers;
 
 use Lib\Pages;
+use Lib\Security;
 use Models\Competicion;
+use Models\Usuario;
 
 class APIController
 {
     private Pages $pages;
     private Competicion $model;
+
+    private Usuario $usuario;
     function __construct()
     {
         $this->pages = new Pages();
         $this->model = new Competicion();
+        $this->usuario = Usuario::fromArray([]);;
     }
 
     public function mostrar_competiciones()
     {
-        $body = $this->model->mostrar_competiciones();
-        $this->pages->render("competiciones/mostrar_competiciones", ["body" => $body]);
+        if (isset($_SESSION['login']) && $_SESSION['login'] != 'failed') {
+            $token = Security::getToken();
+            // Comprobar que el token que llega es el mismo de la base de datos
+            if (!$this->usuario->comprobarToken($_SESSION['login']->correo, $token)) {
+                $error = "Token no válido";
+                $this->pages->render("competiciones/mostrar_competiciones", ["error" => $error]);
+            } 
+            
+            // Comprobar que el token no está expirado
+            elseif ($this->usuario->tokenExpirado($_SESSION['login']->correo)) {
+                $error = "Token expirado";
+                $this->pages->render("competiciones/mostrar_competiciones", ["error" => $error]);
+
+            } 
+            
+            // Comprobar datos del token que llega
+            elseif (!$this->usuario->datosCorrectosToken($token, $_SESSION['login']->nombre, $_SESSION['login']->correo)) {
+                $error = "Token no correspondido";
+                $this->pages->render("competiciones/mostrar_competiciones", ["error" => $error]);
+            } 
+
+            // Exito
+            else {
+                $this->usuario->guardaToken(Security::crearTokenExpirado(Security::claveSecreta(), [$_SESSION['login']->nombre, $_SESSION['login']->correo]));
+                $body = $this->model->mostrar_competiciones();
+                $this->pages->render("competiciones/mostrar_competiciones", ["body" => $body]);
+            }
+        } else {
+            $error = "No tienes acceso a esta pagina";
+            $this->pages->render("competiciones/mostrar_competiciones", ["error" => $error]);
+        }
     }
 
     public function mostrar_competicion($id)
@@ -49,7 +83,8 @@ class APIController
         $this->pages->render("competiciones/modificar_competicion", ["rowCount" => $rowCount]);
     }
 
-    public function home(){
+    public function home()
+    {
         $this->pages->render("layout/home");
     }
 }

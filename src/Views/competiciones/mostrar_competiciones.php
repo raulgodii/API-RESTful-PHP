@@ -4,8 +4,12 @@
 
     echo $ResponseHTTP->setHeaders();
 
-    if(count($body) == 0){
-        echo $ResponseHTTP->statusMessage(404, "No existen competiciones", $body);
+    if(isset($error)){
+        echo $ResponseHTTP->statusMessage(404, $error, []);
     } else {
-        echo $ResponseHTTP->statusMessage(202, "OK", $body);
+        if(count($body) == 0){
+            echo $ResponseHTTP->statusMessage(404, "No existen competiciones", $body);
+        } else {
+            echo $ResponseHTTP->statusMessage(202, "OK", $body);
+        }
     }

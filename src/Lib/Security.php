@@ -57,15 +57,14 @@ class Security
     {
         $headers = apache_request_headers(); // Recoger las cabeceras en el servidor Apache
         if (!isset($headers['Authorization'])) { // Comprobamos que existe la cabecera authorization
-            return $response['message'] = json_decode(ResponseHTTP::statusMessage(403, 'Acceso Denegado'));
+            return "";
         }
         try {
-            $authorizationArr = explode('', $headers['Authorization']);
+            $authorizationArr = explode(' ', $headers['Authorization']);
             $token = $authorizationArr[1];
-            $decodeToken = JWT::decode($token, new Key(Security::claveSecreta(), 'HS256'));
-            return $decodeToken;
+            return $token;
         } catch (PDOException $e) {
-            return $response['message'] = json_encode(ResponseHTTP::statusMessage(401, 'Token expirado o invalido'));
+            return "";
         }
     }
 }

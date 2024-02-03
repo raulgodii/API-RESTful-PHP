@@ -172,13 +172,13 @@ class Usuario
 
         // Verificar si el token ha expirado
         $tiempoActual = time();
-       
+
         if ($expiracion <= $tiempoActual) {
             return "Error: El token ha expirado, vuelva a registrarse.";
         }
 
         // Si todas las verificaciones pasan, marcar el usuario como confirmado
-        
+
 
         return $this->marcarUsuarioConfirmado($correo, $usuario);
     }
@@ -225,7 +225,7 @@ class Usuario
     }
 
     // Función para verificar si el token es el mismo
-    private function comprobarToken($correo, $token)
+    public function comprobarToken($correo, $token)
     {
         try {
             $select = $this->db->prepare("SELECT token FROM usuarios WHERE correo=:correo");
@@ -249,6 +249,28 @@ class Usuario
         return $result;
     }
 
+    public function datosCorrectosToken($token, $nombre, $correo)
+    {
+        try {
+            $tokenDecoded = Security::descrifrarToken($token);
+
+            // Obtener datos del token
+            $correoToken = $tokenDecoded->data[1];
+            $nombreToken = $tokenDecoded->data[0];
+
+            // El token es válido y no ha expirado
+            if(($nombreToken === $nombre)&&($correoToken === $correo)){
+                return true;
+            }
+        } catch (ExpiredException $e) {
+            // El token ha expirado, manejar aquí la lógica correspondiente
+            return false;
+        } catch (Exception $e) {
+            // Otras excepciones
+            return false;
+        }
+    }
+
 
     // Función para marcar a un usuario como confirmado
     private function marcarUsuarioConfirmado($correo, $usuario)
@@ -262,7 +284,7 @@ class Usuario
             $update->bindValue(':correo', $correo, PDO::PARAM_STR);
             $update->bindValue(':fechaExpiracion', $fechaExpiracion, PDO::PARAM_STR);
             $update->bindValue(':tokenExpirado', $tokenExpirado, PDO::PARAM_STR);
-            
+
 
             $update->execute();
 
@@ -490,13 +512,14 @@ class Usuario
         return empty($errores) ? true : $errores;
     }
 
-    function tokenExpirado($correo) {
+    function tokenExpirado($correo)
+    {
         try {
             // Obtener la fecha de expiración del token de la base de datos
             $select = $this->db->prepare("SELECT token FROM usuarios WHERE correo = :correo");
             $select->bindValue(':correo', $correo, PDO::PARAM_STR);
             $select->execute();
-    
+
             if ($select && $select->rowCount() == 1) {
                 $token = $select->fetch(PDO::FETCH_OBJ)->token;
 
@@ -511,8 +534,6 @@ class Usuario
                     // Otras excepciones
                     return false;
                 }
-
-            
             } else {
                 return false;
             }
@@ -521,7 +542,7 @@ class Usuario
             return false;
         }
     }
-    
+
 
     /**
      * Valida los datos del usuario durante el proceso de inicio de sesión.
@@ -542,7 +563,7 @@ class Usuario
             $errores['email'] = 'El formato del email no es válido.';
         } elseif (!$this->buscaMail($this->email)) {
             $errores['email'] = 'Este correo no pertenece a ninguna cuenta.';
-        } elseif(!$this->usuarioConfirmado($this->email)){
+        } elseif (!$this->usuarioConfirmado($this->email)) {
             $errores['confirmado'] = 'Acción necesaria: confirmar correo';
         }
 
@@ -557,7 +578,8 @@ class Usuario
         return empty($errores) ? true : $errores;
     }
 
-    public function guardaToken($token){
+    public function guardaToken($token)
+    {
         try {
             $fechaExpiracion = strtotime("now") + 1800;
 
@@ -566,7 +588,7 @@ class Usuario
             $update->bindValue(':correo', $_SESSION['login']->correo, PDO::PARAM_STR);
             $update->bindValue(':fechaExpiracion', $fechaExpiracion, PDO::PARAM_STR);
             $update->bindValue(':token', $token, PDO::PARAM_STR);
-            
+
 
             $update->execute();
 
