@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>CoderDocs - Bootstrap Documentation Template For Software Projects</title>
+    <title>PowerHispania API</title>
 
     <!-- Meta -->
     <meta charset="utf-8">
@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Bootstrap 4 Template For Software Startups">
     <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="<?= BASE_URL ?>/images/coderdocs-logo.svg">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
